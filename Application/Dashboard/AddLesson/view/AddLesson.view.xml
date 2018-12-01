@@ -1,0 +1,124 @@
+<mvc:View controllerName="schapp.Application.Dashboard.AddLesson.controller.AddLesson" 
+	xmlns:l="sap.ui.layout" 
+	xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m">
+	<Page visible="true" enableScrolling="false" showHeader="false" class="sapUiContentPadding">
+		<content>
+			<l:FixFlex >
+				<l:flexContent>
+					<ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="false">
+						<VBox width="100%" alignItems="Stretch" justifyContent="Start">
+							<Toolbar height="2rem" class="sapUiTinyMarginBottom">
+								<HBox alignItems="Center" justifyContent="Start" class="sapUiTinyMarginTop">
+									<core:Icon src="sap-icon://add-coursebook" color="#325e86" size="18px"></core:Icon>
+									<Title class="userInfoPanelTitle" text="{i18n>AddCourse}"/>
+								</HBox>
+							</Toolbar>
+
+						</VBox>
+						<VBox width="100%" alignItems="Stretch" justifyContent="Start">
+							<l:Grid hSpacing="2" vSpacing="0" defaultSpan="L6 M12 S12">
+								<VBox alignItems="Stretch" justifyContent="Start" width="100%">
+									<HBox alignItems="Center" justifyContent="Stretch" width="100%">
+										<Label text="{i18n>Coursename}" width="120px" />
+										<Label text=":" width="10px" />
+										<VBox width="100%">
+											<Input width="100%" value="{/lessonAddModel/lnm}" />
+										</VBox>
+									</HBox>
+									<HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+										<Text width="120px" text="{i18n>BriefContentoftheCourse}"/>
+										<Label text=":" width="10px" />
+										<VBox width="100%">
+											<Input width="100%" value="{/lessonAddModel/lcntn}" />
+										</VBox>
+									</HBox>
+									<HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+										<Text width="120px" text="{i18n>CourseCode}"/>
+										<Label text=":" width="10px" />
+										<VBox width="100%">
+											<Input width="100%" value="{/lessonAddModel/lcode}" />
+										</VBox>
+									</HBox>
+									<HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+										<Label width="120px" text="{i18n>CourseClass} "/>																		
+										<Label text=":" width="10px" />
+										<VBox width="100%">
+											<Select width="100%" id="addlessclass">
+												<core:Item key="1" text="1.Sınıf" />
+												<core:Item key="2" text="2.Sınıf" />
+												<core:Item key="3" text="3.Sınıf" />
+												<core:Item key="4" text="4.Sınıf" />
+											</Select>
+										</VBox>
+									</HBox>
+									<HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+										<Label width="120px" text="{i18n>CourseTerm}"/>
+										<Label text=":" width="10px" />
+										<VBox width="100%">
+											<Select width="100%" id="addless">
+												<core:Item key="1" text="1.Dönem" />
+												<core:Item key="2" text="2.Dönem" />
+											</Select>
+										</VBox>
+									</HBox>
+									<HBox alignItems="Center" justifyContent="End" width="100%" class="sapUiTinyMarginTop">
+										<Button text="{i18n>Add}" type="Default" press="validateData"/>
+									</HBox>
+								</VBox>
+							</l:Grid>
+						</VBox>
+						<Table id="lesson" inset="false" items="{
+			path: '/AdlesAll'
+		}">
+							<headerToolbar>
+								<Toolbar>
+									<content>
+										<ToolbarSpacer />
+									</content>
+								</Toolbar>
+							</headerToolbar>
+							<infoToolbar>
+								<Toolbar active="ture">
+									<Label text="{i18n>Alllessons}"/>
+								</Toolbar>
+							</infoToolbar>
+							<columns>
+								<Column
+				>
+									<Text text="{i18n>Coursename}" />
+								</Column>
+								<Column minScreenWidth="Desktop">
+									<Text text="{i18n>CoursePeriod}" />
+								</Column>
+								<Column minScreenWidth="Desktop">
+									<Text text="{i18n>CourseClass}" />
+								</Column>
+								<Column
+				>
+									<Text text="{i18n>CourseContent}" />
+								</Column>
+								<Column
+				>
+									<Text text="{i18n>CourseCode}" />
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier text="{lnm}"/>
+										<ObjectIdentifier text="{lperiod}"/>
+										<ObjectIdentifier text="{lclass}"/>
+										<ObjectIdentifier text="{lcntn}"/>
+										<ObjectIdentifier text="{lcode}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</ScrollContainer>
+				</l:flexContent>
+			</l:FixFlex>
+		</content>
+	</Page>
+</mvc:View>

@@ -1,0 +1,39 @@
+<mvc:View controllerName="schapp.Application.Lesson.LessonCreatedUser.controller.LessonCreatedUser" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m">
+    <Table id="LessonCreatedUser" inset="false" items="{
+			path: '/LessonCreatedUser'
+		}">
+        <headerToolbar>
+            <Toolbar>
+                <content>
+                    <Title text="Oluşturan Bilgileri" level="H2"/>
+                    <ToolbarSpacer />
+                </content>
+            </Toolbar>
+        </headerToolbar>
+        <infoToolbar>
+        </infoToolbar>
+        <columns>
+            <Column width="12em" visible="true" id="Meid">
+                <Text text="Oluşturan" />
+            </Column>
+            <Column minScreenWidth="Tablet">
+                <Text text="Telefon Numarası" />
+            </Column>
+            <Column minScreenWidth="Desktop">
+                <Text text="Mail Adresi" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{ufnm}" />
+                    <Text text="{pnmbr}" />
+                    <Link text="{mail}" target="{lcruid}" href="mailto:{mail}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</mvc:View>

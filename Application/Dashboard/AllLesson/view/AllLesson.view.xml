@@ -1,0 +1,86 @@
+<mvc:View controllerName="schapp.Application.Dashboard.AllLesson.controller.AllLesson" 
+    xmlns="sap.ui.table" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:u="sap.ui.unified" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:c="sap.ui.core" 
+    xmlns:m="sap.m" height="100%" class="sapUiSizeCompact">
+    <m:Page id="page" showHeader="false" enableScrolling="false">
+        <m:content>
+            <l:FixFlex>
+                <l:fixContent>
+                    <m:VBox width="100%" alignItems="Stretch" justifyContent="Center">
+                        <m:Title text="{i18n>Alllessons}" />
+                        <m:VBox width="100%" alignItems="Stretch" justifyContent="Center">
+                            <m:HBox alignItems="Center" justifyContent="Start" width="100%">
+                                <m:SearchField placeholder="{i18n>Search}" width="500px" id="searchBar" search="searchTable"/>
+                                <m:Button text="" press="allLesson" type="Transparent" icon="sap-icon://refresh" tooltip="{i18n>Refresh}" id="refresh" />
+
+                            </m:HBox>
+                        </m:VBox>
+                    </m:VBox>
+                </l:fixContent>
+                <l:flexContent>
+                    <m:VBox id="tableVbox">
+                        <Table id="idlessonTable" visibleRowCount="10" selectionMode="None" enableColumnReordering='false' ariaLabelledBy="title">
+                            <contextMenu>
+                                <m:Menu>
+                                    <m:items>
+                                        <m:MenuItem text="{i18n>RelatedProjects}" press="rightClick" />
+                                        <m:MenuItem text="{i18n>ViewLess}" press="rightClick" />
+                                        <m:MenuItem text="{i18n>DeleteLesson}" press="rightClick" />
+                                    </m:items>
+                                </m:Menu>
+                            </contextMenu>
+                            <columns >
+                                <Column width="11rem">
+                                    <m:Label text="{i18n>CourserName}" />
+                                    <template>
+                                        <m:Text wrapping="false" tooltip="{lnm}" text="{lnm}" />
+                                    </template>
+                                </Column>
+                                <Column width="11rem">
+                                    <m:Label text="{i18n>CoursePeriod}" />
+                                    <template>
+                                        <m:Text wrapping="false" text="{lperiod}" />
+                                    </template>
+                                </Column>
+                                <Column width="11.5rem">
+                                    <m:Label text="{i18n>CourseClass}" />
+                                    <template>
+                                        <m:Text wrapping="false" text="{lclass}" />
+                                    </template>
+                                </Column>
+                                <Column width="14rem">
+                                    <m:Label text="{i18n>CourseContent}" />
+                                    <template>
+                                        <m:Text wrapping="false" text="{lperiod}" />
+                                    </template>
+                                </Column>
+                                <Column width="20rem">
+                                    <m:Label text="{i18n>CourseCode}" />
+                                    <template>
+                                        <m:Text wrapping="false" text="{lcode}" />
+                                    </template>
+                                </Column>
+                            </columns>
+                        </Table>
+                        <m:HBox class="footerToolbar" alignItems="Center" justifyContent="Stretch" width="100%">
+                            <m:HBox width="40%" alignItems="Center" justifyContent="Start">
+                                <m:Text text="{i18n>NumberofRecordstoDisplay}"/>
+                                <m:Select forceSelection="false" id="rid" width="100%" selectedKey="10" change="changePaginator">
+                                    <c:Item key="10" text="10" />
+                                    <c:Item key="25" text="25" />
+                                    <c:Item key="50" text="50" />
+                                    <c:Item key="100" text="100" />
+                                </m:Select>
+                            </m:HBox>
+                            <m:HBox width="60%" alignItems="Center" justifyContent="Start" id="footerToolbar">
+                            </m:HBox>
+                        </m:HBox>
+                    </m:VBox>
+                </l:flexContent>
+            </l:FixFlex>
+        </m:content>
+    </m:Page>
+</mvc:View>

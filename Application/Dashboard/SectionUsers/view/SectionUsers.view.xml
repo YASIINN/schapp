@@ -1,0 +1,73 @@
+<mvc:View controllerName="schapp.Application.Dashboard.SectionUsers.controller.SectionUsers" 
+    xmlns="sap.ui.table" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:u="sap.ui.unified" 
+    xmlns:c="sap.ui.core" 
+         xmlns:l="sap.ui.layout" 
+    xmlns:m="sap.m" height="100%" class="sapUiSizeCompact">
+    <m:Page id="page" showHeader="false" enableScrolling="false">
+        <m:content>
+        	<l:FixFlex>
+			<l:fixContent>
+            <m:VBox width="100%" alignItems="Stretch" justifyContent="Center">
+                <m:Title text="Bölüm Kullanıcıları" />
+                 <m:VBox width="100%" alignItems="Stretch" justifyContent="Center">
+                <m:HBox alignItems="Center" justifyContent="Start" width="100%">
+                    <m:SearchField placeholder="Ara .." width="500px" id="searchBar" search="searchTable"/>
+                    <m:Button text="" press="getAllUser" type="Transparent" icon="sap-icon://refresh" tooltip="Yenile" id="refresh" />
+
+                </m:HBox>
+              </m:VBox>
+        
+            </m:VBox>
+             </l:fixContent>
+			<l:flexContent>
+				<m:VBox>
+            <Table id="iduserTable" visibleRowCount="10" selectionMode="None" enableColumnReordering='false' ariaLabelledBy="title">
+                <columns >
+                    <Column width="11rem">
+                        <m:Label text="Adı" />
+                        <template>
+                        	<m:Text wrapping="false"  tooltip="{ufnm}" text="{ufnm}" />
+                        </template>
+                    </Column>
+                    <Column width="11rem">
+                        <m:Label text="Soyadı" />
+                        <template>
+                           	<m:Text wrapping="false"  tooltip="{ulnm}" text="{ulnm}" />
+                        </template>
+                    </Column>
+                    <Column width="14rem">
+                        <m:Label text="Telefon Numarası" />
+                        <template>
+                         	<m:Text wrapping="false"  text="{pnmbr}" />
+                        </template>
+                    </Column>
+                    <Column width="20rem">
+                        <m:Label text="Mail Adresi" />
+                        <template>
+                            <m:Link text="{mail}"  wrapping="false" href="mailto:{mail}"/>
+                        </template>
+                    </Column>
+                </columns>
+            </Table>
+                <m:HBox class="footerToolbar" alignItems="Center" justifyContent="Stretch" width="100%">
+						<m:HBox width="40%" alignItems="Center" justifyContent="Start">
+							<m:Text text="Gösterilecek Kayıt Sayısı :"/>
+							<m:Select forceSelection="false" id="rid" width="100%" selectedKey="10"  change="changePaginator">
+								<c:Item key="10" text="10" />
+								<c:Item key="25" text="25" />
+								<c:Item key="50" text="50" />
+								<c:Item key="100" text="100" />
+							</m:Select>
+						</m:HBox>
+						<m:HBox width="60%" alignItems="Center" justifyContent="Start" id="footerToolbar">
+
+						</m:HBox>
+					</m:HBox>
+				</m:VBox>
+			</l:flexContent>
+		</l:FixFlex>			
+        </m:content>
+    </m:Page>
+</mvc:View>

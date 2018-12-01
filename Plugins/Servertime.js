@@ -1,0 +1,1 @@
+var Servertime={getY:function(){return new Promise(function(e,t){$.ajax({type:"POST",url:"/schapp/AllService/ServiceReq.php",datatype:"application/json",data:{SN:"Servicetime",MN:"G"},success:function(t,n,r){t.length?e(t):e(t.Date)},error:function(t,n,r){e("")}})})}};

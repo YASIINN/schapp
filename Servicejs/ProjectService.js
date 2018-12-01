@@ -1,0 +1,1 @@
+jQuery.sap.require("schapp.AllRequest.AllRequest"),ProjectService={ProjectReq:function(e){return new Promise(function(t,u){AllRequest.POST(e).then(function(e){t(e)})})}};

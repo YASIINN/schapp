@@ -1,0 +1,65 @@
+<mvc:View controllerName="schapp.Application.Dashboard.SystemSettings.controller.SystemSettings" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:core="sap.ui.core" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns="sap.m" 
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <Page visible="true" enableScrolling="true" showHeader="false">
+        <content>
+            <VBox alignItems="Center" justifyContent="Center" width="100%" height="100%">
+                <VBox width="50%" alignItems="Stretch" justifyContent="Center">
+                    <Toolbar height="2rem">
+                        <HBox alignItems="Center" justifyContent="Start">
+                            <core:Icon src="sap-icon://action-settings" color="#325e86" size="18px"></core:Icon>
+                            <Title text="Sistem Ayarları"/>
+                        </HBox>
+                    </Toolbar>
+                    <VBox width="100%" alignItems="End" justifyContent="Stretch">
+                        <Button text="Düzenle" press="setEnb" type="Emphasized"/>
+                    </VBox>
+                    <VBox alignItems="Stretch" justifyContent="Start" width="100%">
+                        <HBox alignItems="Center" justifyContent="Stretch" width="100%">
+                            <Label text="Email Adresi " width="130px" />
+                            <Label text=":" width="10px" />
+                            <VBox width="100%">
+                                <Input width="100%" value="{/SysSettings/0/emailaddres}" enabled="{/enb}"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+                            <Text width="130px" text="Email Adres Şifresi"/>
+                            <Label text=":" width="10px" />
+                            <VBox width="100%">
+                                <Input enabled="{/enb}" id="passid" type="Password" width="100%" value="{/SysSettings/0/emailpass}"/>
+                            </VBox>
+                            <Button icon="sap-icon://show" id="showid" tooltip="Göster" type="Transparent" press="onShowPass"/>
+                        </HBox>
+                        <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+                            <Label width="130px" text="Proje Kontenjan "/>
+                            <Label text=":" width="10px" />
+                            <VBox width="100%" alignItems="Stretch" justifyContent="Stretch">
+                                <Input enabled="{/enb}" width="100%" value="{/SysSettings/0/pjscontenjan}"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+                            <Label width="130px" text="Duyurular "/>
+                            <Label text=":" width="10px" />
+                            <VBox width="100%" alignItems="Stretch" justifyContent="Stretch">
+                                <TextArea enabled="{/enb}" growing="true" width="100%" value="{/SysSettings/0/notice}"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+                            <Label width="130px" wrapping="true" text="Seçilecek Minimum Hoca Sayısı"/>
+                            <Label text=":" width="10px" />
+                            <VBox width="100%" alignItems="Stretch" justifyContent="Stretch">
+                                <Input enabled="{/enb}" width="100%" value="{/SysSettings/0/quotaoneducator}"/>
+                            </VBox>
+                        </HBox>
+                        <VBox width="100%" alignItems="End" justifyContent="Stretch">
+                            <Button text="Güncelle" press="setSysSetting" type="Emphasized" visible="{/enb}"/>
+                        </VBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

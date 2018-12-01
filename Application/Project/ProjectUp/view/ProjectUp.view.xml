@@ -1,0 +1,67 @@
+<mvc:View controllerName="schapp.Application.Project.ProjectUp.controller.ProjectUp" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m">
+    <Page visible="true" enableScrolling="true" showHeader="false">
+        <content>
+            <VBox alignItems="Center" justifyContent="Center" width="100%" height="100%">
+                <VBox width="50%" alignItems="Stretch" justifyContent="Center">
+                    <Toolbar height="2rem">
+                        <HBox alignItems="Center" justifyContent="Start">
+                            <core:Icon src="sap-icon://hint" color="#325e86" size="18px"></core:Icon>
+                            <Title class="sapUiTinyMarginBegin" text="Proje Bilgisi"/>
+
+                        </HBox>
+                        <VBox width="100%" alignItems="End" justifyContent="Stretch">
+                            <Button text="Düzenle" id="editbtn" press="setEnb" type="Emphasized"/>
+                        </VBox>
+                    </Toolbar>
+                    <VBox alignItems="Stretch" justifyContent="Start" width="100%">
+                        <HBox alignItems="Center" justifyContent="Stretch" width="100%">
+                            <Label text="Proje Adı " width="130px" />
+                            <Label text=":" width="10px" />
+                            <VBox width="100%">
+                                <Input enabled="{/enb}" width="100%" value="{/projectUp/0/pjnm}"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+                            <Text width="130px" text="Proje İçeriği"/>
+                            <Label text=":" width="10px" />
+                            <VBox width="100%">
+                                <Input enabled="{/enb}" width="100%" value="{/projectUp/0/pjcntn}"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+                            <Label width="130px" text="Proje Teknolojileri"/>
+                            <Label text=":" width="10px" />
+                            <VBox width="100%" alignItems="Stretch" justifyContent="Stretch">
+                                <Input enabled="{/enb}" width="100%" value="{/projectUp/0/pjtechnology}"/>
+                            </VBox>
+                        </HBox>
+                           <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+                            <Label width="130px" text="Proje Kontenjan"/>
+                            <Label text=":" width="10px" />
+                            <VBox width="100%" alignItems="Stretch" justifyContent="Stretch">
+                                <Input enabled="{/enb}" width="100%" value="{/projectUp/0/pjquota}"/>
+                            </VBox>
+                        </HBox>
+                        <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
+                            <Label width="130px" text="İlgili Dersler	"/>
+                            <Label text=":" width="10px" />
+                            <VBox width="100%" alignItems="Stretch" justifyContent="Stretch">
+                                <MultiComboBox enabled="{/enb}" id="lessonCombo" selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" items="{
+				path: '/allLesson'
+			}">
+                                    <core:Item key="{lid}" text="{lnm}" />
+                                </MultiComboBox>
+                            </VBox>
+                        </HBox>
+                        <VBox width="100%" alignItems="End" justifyContent="Stretch">
+                            <Button text="Güncelle" press="onLessonTransaction" id="updateR" visible="{/enb}" type="Emphasized"/>
+                        </VBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

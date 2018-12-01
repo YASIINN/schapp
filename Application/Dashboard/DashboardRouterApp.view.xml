@@ -1,0 +1,86 @@
+<View controllerName="schapp.Application.Dashboard.DashboardRouter" 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:tnt="sap.tnt" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" 
+    xmlns:f="sap.f" height="100%">
+    <Page enableScrolling="false" showHeader="false">
+    <l:FixFlex class="fixFlexVertical">
+        <l:fixContent>
+            <tnt:ToolHeader id="rootViewToolHeader" >
+                <Button
+                    icon="sap-icon://menu2"
+                    type="Emphasized"
+                    press="onShowSideBarView"
+                    class="sapUiSmallMarginBegin">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow"/>
+                    </layoutData>
+                </Button>
+                <IconTabHeader
+                    showOverflowSelectList="true"
+                    backgroundDesign="Transparent"
+                    select="goHomePage"
+                    mode="Standard">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" shrinkable="true"/>
+                    </layoutData>
+                    <items>
+                        <IconTabFilter text="AnaSayfa" ></IconTabFilter>
+                    </items>
+                </IconTabHeader>
+                <ToolbarSpacer>
+                    <layoutData>
+                    </layoutData>
+                </ToolbarSpacer>
+                   <HBox
+                    id="notification-button"
+                    alignItems="Center"
+                    justifyContent="Center"
+                    class="global-header-notify-badge">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow"/>
+                    </layoutData>
+                </HBox>
+               <MenuButton text="{/UserModel/0/fullname}" type="Transparent" class="profile-button">
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="NeverOverflow"/>
+                        </layoutData>
+                        <menu>
+                            <Menu>
+                                <items>
+                                    <MenuItem press="onClose" text="Çıkış Yap"/>
+                                </items>
+                            </Menu>
+                        </menu>
+                    </MenuButton>
+            </tnt:ToolHeader>
+        </l:fixContent>
+        <l:flexContent>
+                    <HBox width="100%" height="100%" alignItems="Stretch" justifyContent="Stretch">
+                <VBox id="leftSideView" height="100%" class="dashboard-left-side sapUiContentPadding">
+                    <ScrollContainer height="100%" horizontal="false" vertical="true" focusable="false">
+                        <List class="dashboard-left-side-items" items="{path: '/userLayout'}">
+                            <CustomListItem app:url="{lyrouter}" type="Active" press="DashboardrouterEvent">
+                                <HBox>
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Text text="{lynm}"/>
+                                    </VBox>
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+
+                    </ScrollContainer>
+                </VBox>
+                <VBox width="100%" height="100%" alignItems="Stretch" justifyContent="Stretch">
+                    <App id="DashboardRouterId" afterNavigate="testNav"/>
+                </VBox>
+            </HBox>
+        </l:flexContent>
+    </l:FixFlex>
+        <content>
+
+        </content>
+    </Page>
+</View>

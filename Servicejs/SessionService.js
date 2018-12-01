@@ -1,0 +1,1 @@
+jQuery.sap.require("schapp.AllRequest.AllRequest");var SessionService={getSession:function(e){return new Promise(function(n,u){AllRequest.POST(e).then(function(e){n(e)})})}};

@@ -1,0 +1,35 @@
+<View xmlns="sap.m" 
+    xmlns:l="sap.ui.layout" controllerName="schapp.Application.RegisterCheck.controller.RegisterCheck" 
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" height="100%">
+    <Page showHeader="false">
+        <l:FixFlex class="fixFlexVertical">
+            <l:flexContent>
+                <FlexBox class="pageBGImage loginWrapper" direction="Column" height="100%" alignItems="Center" justifyContent="Center">
+                    <items>
+                        <FlexBox class="login-content" direction="Column" alignItems="Center" justifyContent="Stretch">
+                            <items>
+                                <VBox alignItems="Stretch" justifyContent="Stretch" height="100%" width="100%">
+                                    <VBox class="login-header" alignItems="Center" justifyContent="Center">
+                                        <HBox class="logo-text-wrapper">
+                                            <Text text="Aktivitasyon Kodu"/>
+                                        </HBox>
+                                    </VBox>
+                                    <VBox class="login-items-content" alignItems="Center" justifyContent="Stretch" width="100%" height="100%">
+                                        <VBox alignItems="Stretch" justifyContent="Start" width="100%">
+                                            <Input id="codeInput" type="Text" value=""/>
+                                        </VBox>
+                                        <HBox>
+                                            <Label id="" text="Kalan Zaman"/>
+                                            <Label id="lid" text=""/>
+                                        </HBox>
+                                        <Button text="Tamam" type="Emphasized" press="onPress"/>
+                                    </VBox>
+                                </VBox>
+                            </items>
+                        </FlexBox>
+                    </items>
+                </FlexBox>
+            </l:flexContent>
+        </l:FixFlex>
+    </Page>
+</View>

@@ -1,0 +1,1 @@
+jQuery.sap.require("schapp.AllRequest.AllRequest");var SectionService={SectionReq:function(e){return new Promise(function(n,t){AllRequest.POST(e).then(function(e){n(e)})})}};

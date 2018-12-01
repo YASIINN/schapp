@@ -1,0 +1,43 @@
+<mvc:View controllerName="schapp.Application.Project.ProjectOnLesson.controller.ProjectOnLesson" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m">
+    <Table id="LessonOnProject" inset="false" items="{
+			path: '/ProjectOnLesson'
+		}">
+        <headerToolbar>
+            <Toolbar>
+                <content>
+                    <Title text="Dersler" level="H2"/>
+                    <ToolbarSpacer />
+                </content>
+            </Toolbar>
+        </headerToolbar>
+        <infoToolbar>
+        </infoToolbar>
+        <columns>
+            <Column width="12em">
+                <Text text="Ders Adı" />
+            </Column>
+            <Column minScreenWidth="Tablet">
+                <Text text="Ders Dönemi" />
+            </Column>
+            <Column minScreenWidth="Desktop">
+                <Text text="Dersin Sınıfı" />
+            </Column>
+            <Column minScreenWidth="Desktop">
+                <Text text="Dersin İçeriği" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{lnm}" />
+                    <Text text="{lperiod}" />
+                    <Text text="{lclass}"/>
+                    <Text text="{lcntn}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</mvc:View>

@@ -1,0 +1,25 @@
+<View
+    controllerName="schapp.MasterApp"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:tnt="sap.tnt"
+    xmlns:l="sap.ui.layout">
+    <l:FixFlex>
+        <l:fixContent>
+            <tnt:ToolHeader visible="false" id="ToolHeader_id" >
+                <FlexBox
+                    width="100%"
+                    direction="Row"
+                    alignItems="Center"
+                    justifyContent="SpaceBetween">
+                    <HBox alignItems="Center" id="icontabBar" justifyContent="Start">
+                    </HBox>
+                </FlexBox>
+            </tnt:ToolHeader>
+        </l:fixContent>
+        <l:flexContent>
+            <App id="masterView" />
+        </l:flexContent>
+    </l:FixFlex>
+</View>

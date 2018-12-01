@@ -1,0 +1,1 @@
+jQuery.sap.require("schapp.AllRequest.AllRequest");var PluginService={PluginReq:function(e){return new Promise(function(u,n){AllRequest.POST(e).then(function(e){u(e)})})}};

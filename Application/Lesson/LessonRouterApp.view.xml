@@ -1,0 +1,49 @@
+<View displayBlock="true" 
+    xmlns="sap.m" 
+    xmlns:f="sap.f" controllerName="schapp.Application.Lesson.LessonRouter" 
+    xmlns:tnt="sap.tnt" 
+    xmlns:l="sap.ui.layout">
+    <l:FixFlex class="fixFlexVertical">
+        <l:fixContent>
+            <tnt:ToolHeader id="rootViewToolHeader">
+                <IconTabHeader showOverflowSelectList="true" backgroundDesign="Transparent" select="LessonRouterEvent" mode="Standard" id="lestab">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow" shrinkable="true"/>
+                    </layoutData>
+                    <items>
+                        <IconTabFilter key="Lesson/LessonOnProject" text="İlgili Projeler"></IconTabFilter>
+                        <IconTabFilter key="Lesson/LessonCreatedUser" text="Dersi Oluşturan"></IconTabFilter>
+                        <IconTabFilter key="Lesson/LessonUd" text="Ders Info"></IconTabFilter>
+                    </items>
+                </IconTabHeader>
+                <ToolbarSpacer>
+                    <layoutData>
+                    </layoutData>
+                </ToolbarSpacer>
+                <HBox id="notification-button" alignItems="Center" justifyContent="Center" class="global-header-notify-badge">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow"/>
+                    </layoutData>
+                </HBox>
+                <MenuButton text="{/UserModel/0/fullname}" type="Transparent" class="profile-button">
+                    <layoutData>
+                        <OverflowToolbarLayoutData priority="NeverOverflow"/>
+                    </layoutData>
+                    <menu>
+                        <Menu>
+                            <items>
+                                <MenuItem press="onClose" text="Çıkış Yap"/>
+                                <MenuItem press="onGoHome" text="Ana Sayfa"/>
+                            </items>
+                        </Menu>
+                    </menu>
+                </MenuButton>
+            </tnt:ToolHeader>
+        </l:fixContent>
+        <l:flexContent>
+            <VBox width="100%" height="100%" alignItems="Stretch" justifyContent="Stretch">
+                <App id="LessonRouterId" />
+            </VBox>
+        </l:flexContent>
+    </l:FixFlex>
+</View>

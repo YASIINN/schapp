@@ -1,0 +1,1 @@
+var StorageControls={localStorageSet:function(e,t){localStorage.setItem(e,base64._utf8_encode(t))},localStorageGet:function(e){return localStorage.getItem(base64._utf8_decode(e))},sessionStrogeSet:function(e,t){sessionStorage.setItem(e,base64._utf8_encode(t))},sessionStrogeGet:function(e){return sessionStorage.getItem(base64._utf8_decode(e))}};
