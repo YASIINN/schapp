@@ -5,26 +5,28 @@ header("Content-Type: application/json; charset=UTF-8");
 class Sections extends database
 {
     public $result = array();
-    public function GETWHERE($where, $allparam, $field)
+    // public function GETWHERE($where, $allparam, $field)
+    // {
+     
+    //     $sectionRows = $this->getrows("SELECT  * FROM  $field WHERE $where=?", $fparam);
+    //     if (count($sectionRows) == 0) {
+    //         $this->result = array("status" => "None");
+    //         return $this->result;
+    //     } else {
+    //         for ($i = 0; $i < count($sectionRows); $i++) {
+    //             $this->result[] = array("sid" => $sectionRows[$i]['sid'], "sname" => $sectionRows[$i]['sname'], );
+    //         }
+    //         return $this->result;
+    //     }
+    // }
+    public function GET($where,$allparam)
     {
         $fparam = array();
         for ($index = 0; $index < count($allparam); $index++) {
             array_push($fparam, $allparam[$index]);
         }
-        $sectionRows = $this->getrows("SELECT  * FROM  $field WHERE $where=?", $fparam);
-        if (count($sectionRows) == 0) {
-            $this->result = array("status" => "None");
-            return $this->result;
-        } else {
-            for ($i = 0; $i < count($sectionRows); $i++) {
-                $this->result[] = array("sid" => $sectionRows[$i]['sid'], "sname" => $sectionRows[$i]['sname'], );
-            }
-            return $this->result;
-        }
-    }
-    public function GET()
-    {
-        $sectionRows = $this->getrows("SELECT  * FROM  sections");
+        $sectionRows =$this->select("sections",$where,$fparam);
+        //  $this->getrows("SELECT  * FROM  sections");
         if (count($sectionRows) == 0) {
             $this->result = array("status" => "None");
             return $this->result;

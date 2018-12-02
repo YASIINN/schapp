@@ -25,7 +25,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
                 }
                 else {
                     CreateComponent.showBusyIndicator();
-                    LessonService.lessonReq({ MN: "GETWHERE", "SN": "Lesson", field: "lesson", where: "sid", allparam: [parseInt(oModel.oData.UserModel[0].sid)] }).then(function (res) {
+                    LessonService.lessonReq({ MN: "GET", "SN": "Lesson", where: "sid=?", allparam: [parseInt(oModel.oData.UserModel[0].sid)] }).then(function (res) {
                         if (res == "None") {
                             CreateComponent.hideBusyIndicator();
                         } else {
@@ -64,7 +64,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
                         lperiod: _this.byId("addless").getSelectedKey(),
                         sid: oModel.oData.UserModel[0].sid
                     }
-                    LessonService.lessonReq({ SN: "Lesson", MN: "GETWHERE", "where": "lnm=? OR lcode", allparam: [oModel.oData.lessonAddModel.lnm, oModel.oData.lessonAddModel.lcode], field: "lesson" }).then(function (res) {
+                    LessonService.lessonReq({ SN: "Lesson", MN: "GET", "where": "lnm=? OR lcode=?", allparam: [oModel.oData.lessonAddModel.lnm, oModel.oData.lessonAddModel.lcode]}).then(function (res) {
                         if (res != "None" && res != "") {
                             sap.m.MessageToast.show("Bu Ders Veya Ders Kodu Daha Önce Girildi")
                             CreateComponent.hideBusyIndicator();

@@ -1,7 +1,6 @@
 var base64 = {
     objectEncode: function (obj) {
        return btoa(unescape(encodeURIComponent(JSON.stringify(obj[0]))))
-        //  return btoa(JSON.stringify(obj[0]));
     },
     objectDecode: function (encoded) {
         return JSON.parse(atob(decodeURIComponent(encoded)))

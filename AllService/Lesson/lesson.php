@@ -6,10 +6,10 @@ class Lesson extends database
 {
 
     public $result = array();
-    public function GET()
+    public function GET($where,$param)
     {
         if (isset($_SESSION["UNM"])) {
-            $lessonRows = $this->getrows("SELECT  * FROM  lesson");
+            $lessonRows =$this->select("lesson",$where,$param);
             if (count($lessonRows) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;
@@ -53,36 +53,36 @@ class Lesson extends database
             }
         }
     }
-    public function GETWHERE($where, $allparam, $field)
-    {
-        if (isset($_SESSION["UNM"])) {
-            $fparam = array();
-            for ($index = 0; $index < count($allparam); $index++) {
-                array_push($fparam, $allparam[$index]);
-            }
-            $lessonRows = $this->getrows("SELECT  * FROM  $field WHERE $where=?", $fparam);
-            if (count($lessonRows) == 0) {
-                $this->result = array("status" => "None");
-                return $this->result;
-            } else {
-                for ($i = 0; $i < count($lessonRows); $i++) {
-                    $this->result[] = array(
-                        "status" => "Okey",
-                        "where" => "userWhere",
-                        "lid" => $lessonRows[$i]['lid'],
-                        "lnm" => $lessonRows[$i]['lnm'],
-                        "lperiod" => $lessonRows[$i]["lperiod"],
-                        "lclass" => $lessonRows[$i]["lclass"],
-                        "lcntn" => $lessonRows[$i]["lcntn"],
-                        "lcode" => $lessonRows[$i]["lcode"],
-                    );
-                }
-                return $this->result;
-            }
+    // public function GETWHERE($where, $allparam, $field)
+    // {
+    //     if (isset($_SESSION["UNM"])) {
+    //         $fparam = array();
+    //         for ($index = 0; $index < count($allparam); $index++) {
+    //             array_push($fparam, $allparam[$index]);
+    //         }
+    //         $lessonRows = $this->getrows("SELECT  * FROM  $field WHERE $where=?", $fparam);
+    //         if (count($lessonRows) == 0) {
+    //             $this->result = array("status" => "None");
+    //             return $this->result;
+    //         } else {
+    //             for ($i = 0; $i < count($lessonRows); $i++) {
+    //                 $this->result[] = array(
+    //                     "status" => "Okey",
+    //                     "where" => "userWhere",
+    //                     "lid" => $lessonRows[$i]['lid'],
+    //                     "lnm" => $lessonRows[$i]['lnm'],
+    //                     "lperiod" => $lessonRows[$i]["lperiod"],
+    //                     "lclass" => $lessonRows[$i]["lclass"],
+    //                     "lcntn" => $lessonRows[$i]["lcntn"],
+    //                     "lcode" => $lessonRows[$i]["lcode"],
+    //                 );
+    //             }
+    //             return $this->result;
+    //         }
 
-        }
+    //     }
 
-    }
+    // }
     public function DEL($where, $allparam)
     {
         if (isset($_SESSION["UNM"])) {

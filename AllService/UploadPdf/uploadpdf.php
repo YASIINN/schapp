@@ -26,18 +26,37 @@ class UploadPdf extends database
             }
         }
     }
-    public function DEL(){
+    public function DEL()
+    {
 
     }
-    public function GET(){
+    public function GET($where, $param)
+    {
         if (isset($_SESSION["UNM"])) {
-            $tf = $this->getrows("SELECT * FROM trnskriptfolder");
+            $tf =$this->select("trnskriptfolder",$where,array($param));
+            //  $this->getrows("SELECT * FROM trnskriptfolder WHERE $where", array($param));
             if (count($tf) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;
             } else {
                 for ($i = 0; $i < count($tf); $i++) {
                     $this->result[] = array("status" => "Okey", "tfname" => $tf[$i]['tfname']);
+                }
+                return $this->result;
+            }
+        }
+    }
+    public function GETF($where, $param)
+    {
+        if (isset($_SESSION["UNM"])) {
+            $tf = $this->select("trnskriptfolder",$where,array($param));
+            // $this->getrows("SELECT * FROM trnskriptfolder WHERE $where", array($param));
+            if (count($tf) == 0) {
+                $this->result = array("status" => "None");
+                return $this->result;
+            } else {
+                for ($i = 0; $i < count($tf); $i++) {
+                    $this->result ="data:application/pdf;base64,".base64_encode($tf[$i]['tfolder']);
                 }
                 return $this->result;
             }

@@ -33,13 +33,13 @@ if ($SN == "Lesson") {
     include("/Lesson/lesson.php");
     $ls = new $SN();
     if ($MN == "GET") {
-        $result = $ls->$MN();
+        $result = $ls->$MN($_POST['where'], $_POST['allparam']);
     } else
         if ($MN == "ADD") {
         $result = $ls->$MN($_POST['lesson']);
-    } else
-        if ($MN == "GETWHERE") {
-        $result = $ls->$MN($_POST['where'], $_POST['allparam'], $_POST['field']);
+    // } else
+    //     if ($MN == "GETWHERE") {
+    //     $result = $ls->$MN($_POST['where'], $_POST['allparam'], $_POST['field']);
     } else
         if ($MN == "DEL") {
         $result = $ls->$MN($_POST['where'], $_POST['allparam']);
@@ -62,7 +62,8 @@ if ($SN == "Sections") {
         $result = $sc->$MN($_POST['where'], $_POST['allparam'], $_POST['field']);
     } else
         if ($MN == "GET") {
-        $result = $sc->$MN();
+        $result = $sc->$MN($_POST['where'], $_POST['allparam']);
+        // allparam:[]
     } else if ($MN == "GETUS") {
         $result = $sc->$MN($_POST['sid']);
     }
@@ -211,6 +212,8 @@ if ($SN == "ActivePonUser") {
         $result = $apu->$MN($_POST['apudata']);
     } else if ($MN == "DEL") {
         $result = $apu->$MN($_POST['allparam'], $_POST['where']);
+    }else if($MN=="GET"){
+        $result = $apu->$MN($_POST['where'], $_POST['param']);
     }
     echo json_encode($result);
 }
@@ -238,7 +241,9 @@ if ($SN == "UploadPdf") {
         }
         $result = $file->$MN($_POST['where'], $issetparam);
     }else if($MN=="GET"){
-        $result = $file->$MN();
+        $result = $file->$MN($_POST['where'],$_POST['param']);
+    }else if($MN=="GETF"){
+        $result = $file->$MN($_POST['where'],$_POST['param']);
     }
     echo json_encode($result);
 }

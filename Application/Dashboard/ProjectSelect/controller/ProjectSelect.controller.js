@@ -14,6 +14,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             _this.b64 = ""
             _this.size = "";
             _this.type = "";
+            _this.sortData = [];
             this._wizard = this.byId("wizardd");
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.getRoute("Dashboard/ProjectSelect").attachPatternMatched(_this.onBeforeShow, _this);
@@ -91,6 +92,30 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 }
             })
         },
+        sort: function (oEvent) {
+            var _this = this
+            debugger
+            //    var found = _this.sortData.every(function (x) {
+            //         if (x.getKey() == oModel.oData.sPath[sPathArr.length - 1].TSID) return false
+            //         else return true
+            //     })
+
+            if (!_this.sortData.length) {
+                _this.sortData.push(oModel.getProperty(oEvent.oSource._getBindingContext().sPath));
+            } else {
+                for (let index = 0; index < _this.sortData.length; index++) {
+                    
+                }
+            }
+            //     _this.sortData.forEach(function (x) {
+            //         if (x.pjid != oModel.getProperty(oEvent.oSource._getBindingContext().sPath).pjid) {
+            //           
+            //         }
+            //     })
+            // }
+
+            oModel.setProperty("/sorting", _this.sortData);
+        },
         saveProject: function () {
             var _this = this
             var result = true;
@@ -118,6 +143,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                         oModel.setProperty("/pjdata", JSON.parse(JSON.stringify(_this.pjdata)));
                         oModel.oData.pjdata.forEach(function (x) {
                             x.uid = oModel.oData.UserModel[0].uid
+                            x.sid = oModel.oData.UserModel[0].sid
                         })
                         for (let index = 0; index < _this.pjdata.length; index++) {
                             if (!_this.pjdata[index].lid.includes(",")) {

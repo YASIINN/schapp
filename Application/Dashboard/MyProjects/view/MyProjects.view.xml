@@ -1,0 +1,53 @@
+<mvc:View controllerName="schapp.Application.Dashboard.MyProjects.controller.MyProjects" 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m">
+    <Table id="MyProjects" inset="false" items="{
+			path: '/MyProjects'
+		}">
+        <headerToolbar>
+            <Toolbar>
+                <content>
+                    <Title text="Tercih Ettiğim Projeler" level="H2"/>
+                    <ToolbarSpacer />
+                    <Text text="Tercih Ettiğiniz Projeler Sıradaki Gibidir." />
+                </content>
+            </Toolbar>
+        </headerToolbar>
+        <infoToolbar>
+        </infoToolbar>
+        <columns>
+            <Column width="12em">
+                <Text text="Proje Adı" />
+            </Column>
+            <Column width="12em" visible="true">
+                <Text text="Proje İçeriği" />
+
+            </Column>
+            <Column>
+                <Text text="Proje Öneri Sahibi" />
+            </Column>
+            <Column minScreenWidth="Desktop">
+                <Text text="Proje Teknolojileri" />
+            </Column>
+            <Column minScreenWidth="Desktop">
+                <Text text="Projedeki Dersler" />
+            </Column>
+            <Column minScreenWidth="Desktop">
+                <Text text="Proje Dönemi" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text wrapping="false" text="{pjnm}" tooltip="{pjnm}"/>
+                    <Text wrapping="false" text="{pjcntn}" tooltip="{pjcntn}" />
+                    <Text wrapping="false" text="{ufnm}" tooltip="{ufnm}"/>
+                    <Text wrapping="false" text="{pjtechnology}" tooltip="{pjtechnology}"/>
+                    <Text wrapping="false" text="{lnm}" tooltip="{lnm}"/>
+                    <Text wrapping="false" text="{pjperiod}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</mvc:View>

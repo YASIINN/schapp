@@ -78,7 +78,6 @@ var UseronLogin = {
         return deferred;
     },
     outLogin: function () {
-        // DELS
         SessionService.getSession({ SN: "Session", MN: "DELS" }).then(function(res){
         })
         CreateComponent.hideBusyIndicator();

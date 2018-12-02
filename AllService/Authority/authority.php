@@ -9,7 +9,7 @@ class Authority extends database
     {
         if (isset($_SESSION["UNM"])) {
             $db = new Authority("root", "", "localhost", "bitirmeproje");
-            $autRows =  $this->getrows("SELECT  * FROM  authority");
+            $autRows =$this->select("authority","1",array());
             if (count($autRows) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;

@@ -8,7 +8,7 @@ class Title extends database
     public function GETT()
     {
         if (isset($_SESSION["UNM"])) {
-            $titleRows = $this->getrows("SELECT  * FROM  title");
+            $titleRows = $this->select("title","1",array());
             if (count($titleRows) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;

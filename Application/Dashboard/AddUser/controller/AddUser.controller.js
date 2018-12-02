@@ -127,6 +127,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
                 var filter = {
                     MN: "GET",
                     "SN": "Sections",
+                    where:"1",
+                    allparam:[" "]
                 }
                 SectionService.SectionReq(filter).then(function (res) {
                     if (res != "None") {

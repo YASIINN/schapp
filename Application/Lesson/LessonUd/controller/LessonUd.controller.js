@@ -29,7 +29,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/export/Spreadsheet", 'sap/u
                     CreateComponent.showBusyIndicator();
                     var filter = window.location.hash.split("?")[1].split("=")[1];
                     if (filter.trim() != "") {
-                        LessonOnProjectService.lessonOnProjectReq({ SN: "Lesson", MN: "GETWHERE", "where": "lid", allparam: [filter], field: "lesson" }).then(function (res) {
+                        LessonOnProjectService.lessonOnProjectReq({ SN: "Lesson", MN: "GET", "where": "lid=?", allparam: [filter]}).then(function (res) {
                             if (res == "None") {
                                 sap.m.MessageToast.show("Beklenmeye Hata");
                                 CreateComponent.hideBusyIndicator();

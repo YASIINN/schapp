@@ -37,7 +37,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/export/Spreadsheet", 'sap/u
                     if (res != new Date().toLocaleDateString().split(".")[2]) {
                         sap.m.MessageToast.show("Lütfen Bilgisayarınızın Tarih Ve Saatini Güncelleyiniz.")
                     } else {
-                        LessonService.lessonReq({ MN: "GET", "SN": "Lesson" }).then(function (res) {
+                        LessonService.lessonReq({
+                            MN: "GET", "SN": "Lesson", where: "1",
+                            allparam: [" "]
+                        }).then(function (res) {
                             if (res == "None") {
                             } else {
                                 oModel.setProperty("/allLesson", res)
@@ -247,13 +250,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/export/Spreadsheet", 'sap/u
                         var filter = {}
                         filter.SN = "Project",
                             filter.MN = "SET",
-                            filter.param=[],
-                            filter.where = "pjid IN "+"("+filterU+")",
+                            filter.param = [],
+                            filter.where = "pjid IN " + "(" + filterU + ")",
                             filter.pjdata = [{
                                 pjnm: oModel.oData.projectUp[0].pjnm.toUpperCase(),
-                                pjtechnology:oModel.oData.projectUp[0].pjtechnology.toUpperCase(),
-                                pjcntn:oModel.oData.projectUp[0].pjcntn.toUpperCase(),
-                                pjquota:oModel.oData.projectUp[0].pjquota
+                                pjtechnology: oModel.oData.projectUp[0].pjtechnology.toUpperCase(),
+                                pjcntn: oModel.oData.projectUp[0].pjcntn.toUpperCase(),
+                                pjquota: oModel.oData.projectUp[0].pjquota
                             }]
                         ProjectonLesson.ProjectonLessonReq(filter).then(function (res) {
                             if (res == "SuccedUpdate") {

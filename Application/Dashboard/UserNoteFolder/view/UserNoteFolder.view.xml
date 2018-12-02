@@ -1,6 +1,7 @@
 <mvc:View controllerName="schapp.Application.Dashboard.UserNoteFolder.controller.UserNoteFolder" 
     xmlns:l="sap.ui.layout" 
     xmlns:core="sap.ui.core" 
+      xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:mvc="sap.ui.core.mvc" 
     xmlns="sap.m">
     <Page visible="true" enableScrolling="false" showHeader="false" class="sapUiContentPadding">
@@ -10,6 +11,10 @@
                     <ScrollContainer height="100%" width="100%" horizontal="true" vertical="true" focusable="false">
                         <VBox width="100%" alignItems="Stretch" justifyContent="Start">
                             <Toolbar height="2rem" class="sapUiTinyMarginBottom">
+
+        	
+
+
                                 <HBox alignItems="Center" justifyContent="Start" class="sapUiTinyMarginTop">
                                     <core:Icon src="sap-icon://add-employee" color="#325e86" size="18px"></core:Icon>
                                     <Title class="userInfoPanelTitle" text="Öğrenci Transkript Dosyaları"/>
@@ -17,22 +22,26 @@
                             </Toolbar>
                         </VBox>
                         <VBox width="100%" alignItems="Stretch" justifyContent="Start">
-                            <l:Grid hSpacing="2" vSpacing="0" defaultSpan="L6 M12 S12">
-                                <List  items="{path: '/Transkriptmodel'}">
-                                    <CustomListItem>
+                                <List  items="{path: '/Transkriptmodel'}" width="100%">
+                                    <CustomListItem width="100%">
                                         <HBox>
                                             <core:Icon size="2rem" src="sap-icon://pdf-attachment" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" />
                                             <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
-                                              <Button type="Transparent"  text="{tfname}" />
+                                              <Button type="Transparent"  text="{tfname} Numaralı Öğrencinin Transkripti" press="getTranskriptFolder" />
                                             </VBox>
                                         </HBox>
                                     </CustomListItem>
                                 </List>
-                            </l:Grid>
+                        </VBox>
+                        <VBox>
+                        
+
                         </VBox>
                     </ScrollContainer>
+
                 </l:flexContent>
             </l:FixFlex>
+            
         </content>
     </Page>
 

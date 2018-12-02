@@ -19,8 +19,8 @@
                                     </VBox>
                                     <VBox width="100%" alignItems="Stretch" justifyContent="Center">
                                         <HBox alignItems="Center" justifyContent="Start" width="100%">
-                                            <SearchField placeholder="Ara .." width="500px" id="searchBar" search="searchTable"/>
-                                            <Button text="" press="getActiveProject" type="Transparent" icon="sap-icon://refresh" tooltip="Yenile" id="refresh" />
+                                            <!-- <SearchField placeholder="Ara .." width="500px" id="searchBar" search="searchTable"/>
+                                            <Button text="" press="getActiveProject" type="Transparent" icon="sap-icon://refresh" tooltip="Yenile" id="refresh" /> -->
                                         </HBox>
                                     </VBox>
                                 </VBox>
@@ -113,22 +113,65 @@
                                 </HBox>
                             </ScrollContainer>
                         </WizardStep>
-                        <WizardStep id="FileStep" activate="pricingActivate" complete="pricingComplete" validated="false" title="Transkript Yükle">
-                            <VBox>
-                                <Label text="Sadece Pdf Dosyası Yüklenebilir"/>
-                                <HBox>
-                                    <u:FileUploader id="fileUploader" uploadUrl="/TranskriptFolder" change="changefile" style="Emphasized" fileType= "pdf" tooltip="PDF DOSYASI SEÇİNİZ.." />
-                                </HBox>
-                                <Button text="Yükle" press="allResult" icon="sap-icon://upload"/>
-                            </VBox>
-                        </WizardStep>
-                    </Wizard>
-                </content>
-                <!-- <WizardStep id="id_wizStp1" validated="true" title="Step 1">
+                        <WizardStep id="sortStep" validated="false" title="Tercih Sırasını Belirle">
+                            <Text text="Tercih Sıranız Eklediğiniz Sıraya Göre Gerçekleşecektir."/>
+
+                            <Table inset="false" items="{
+                                            path: '/pjdata'
+                                        }">
+                                <infoToolbar>
+                                    <Toolbar active="ture">
+                                        <Label text="Seçtiğiniz Projelerde Bulunan Derslerin Notlarını Giriniz"/>
+                                    </Toolbar>
+                                </infoToolbar>
+                                <columns>
+                                    <Column width="3rem">
+                                        <Text text="Proje Adı" />
+                                    </Column>
+                                    <Column width="3rem">
+                                        <Text text="" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier text="{pjnm}"/>
+                                            <Button text="Seç" press="sort"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+
+                                <List headerText="Tercih Sıranız" mode="Delete" items="{path: '/sorting'}">
+                                    <CustomListItem>
+                                        <HBox>
+                                            <core:Icon size="2rem" src="sap-icon://attachment-photo" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" />
+                                            <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                                <Link text="{pjnm}" target="{ProductPicUrl}" press="handlePress"/>
+                                            </VBox>
+                                        </HBox>
+                                    </CustomListItem>
+                                </List>
+
+
+
+                            </WizardStep>
+                            <WizardStep id="FileStep" validated="false" title="Transkript Yükle">
+                                <VBox>
+                                    <Label text="Sadece Pdf Dosyası Yüklenebilir"/>
+                                    <HBox>
+                                        <u:FileUploader id="fileUploader" uploadUrl="/TranskriptFolder" change="changefile" style="Emphasized" fileType= "pdf" tooltip="PDF DOSYASI SEÇİNİZ.." />
+                                    </HBox>
+                                    <Button text="Yükle" press="allResult" icon="sap-icon://upload"/>
+                                </VBox>
+                            </WizardStep>
+                        </Wizard>
+                    </content>
+                    <!-- <WizardStep id="id_wizStp1" validated="true" title="Step 1">
      <WizardStep id="id_wizStp2" validated="true" title="Step 2">
      <WizardStep id="id_wizStp3" validated="true" title="Step 3"> -->
-            </Page>
-        </pages>
+                </Page>
+            </pages>
 
-    </NavContainer>
-</mvc:View>
+        </NavContainer>
+    </mvc:View>

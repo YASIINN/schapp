@@ -8,7 +8,7 @@ class SystemSettings extends database
     function GETSYS()
     {
         if (isset($_SESSION["UNM"])) {
-            $sysrows = $this->getrows("SELECT * FROM systemsettings");
+            $sysrows = $this->select("systemsettings","1",array());
             if (count($sysrows) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;

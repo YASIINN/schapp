@@ -40,12 +40,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
             oModel.setProperty("/selectedLess", oEvent.getParameter("selectedItems"));
         },
         addless: function () {
+            debugger
             var _this = this
             var filter = {
-                MN: "GETWHERE",
+                MN: "GET",
                 "SN": "Sections",
-                field: "sections",
-                where: "sid",
+                where: "sid=?",
                 allparam: [parseInt(oModel.oData.UserModel[0].sid)]
             }
             if (localStorage.getItem("ST") != new Date().toLocaleDateString().split(".")[2]) {
@@ -179,7 +179,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
                                                 lperiod: sap.ui.getCore().byId("period").getSelectedKey().toUpperCase(),
                                                 sid: oModel.oData.section[0].sid
                                             }
-                                            LessonService.lessonReq({ SN: "Lesson", MN: "GETWHERE", "where": "lnm=? OR lcode", allparam: [filter.lnm, filter.lcode], field: "lesson" }).then(function (res) {
+                                            LessonService.lessonReq({ SN: "Lesson", MN: "GET", "where": "lnm=? OR lcode=?", allparam: [filter.lnm, filter.lcode]}).then(function (res) {
                                                 if (res != "None" && res != "") {
                                                     sap.m.MessageToast.show("Bu Ders Veya Ders Kodu Daha Önce Girildi")
                                                     CreateComponent.hideBusyIndicator();
@@ -308,7 +308,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
             }
             else {
                 CreateComponent.showBusyIndicator();
-                LessonService.lessonReq({ MN: "GETWHERE", "SN": "Lesson", field: "lesson", where: "sid", allparam: [parseInt(oModel.oData.UserModel[0].sid)] }).then(function (res) {
+                LessonService.lessonReq({ MN: "GET", "SN": "Lesson", where: "sid=?", allparam: [parseInt(oModel.oData.UserModel[0].sid)] }).then(function (res) {
                     if (res == "None") {
                     } else {
                         oModel.setProperty("/allLesson", res)

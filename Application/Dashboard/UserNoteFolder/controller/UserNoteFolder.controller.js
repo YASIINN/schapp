@@ -8,18 +8,21 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (e) {
             e.getView().setModel(oModel),
                 sap.ui.core.UIComponent.getRouterFor(this).getRoute("Dashboard/UserNoteFolder").attachPatternMatched(e.onBeforeShow, e)
         },
-        openDialog: function () {
+        getTranskriptFolder: function (oEvent) {
+            jQuery.sap.require("schapp.Application.Dashboard.TFolder.controller.TFolder");
+            TFolder.open(oModel.getProperty(oEvent.getSource().getBindingContext().sPath).tfname);
         },
         getFolder: function () {
-            FolderService.getFolderReq({ MN: "GET", SN: "UploadPdf" }).then(function (res) {
+            CreateComponent.showBusyIndicator();
+            FolderService.getFolderReq({ MN: "GET", SN: "UploadPdf", where: "1", param: "" }).then(function (res) {
                 debugger
                 if (res == "None") {
-                    debugger
+                    CreateComponent.hideBusyIndicator();
                 } else if (res == "") {
-
+                    CreateComponent.hideBusyIndicator();
                 } else {
+                    CreateComponent.hideBusyIndicator();
                     oModel.setProperty("/Transkriptmodel", res)
-                    debugger
                 }
             })
         },

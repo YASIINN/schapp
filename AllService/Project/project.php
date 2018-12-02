@@ -37,7 +37,8 @@ class Project extends database
             for ($index = 0; $index < count($allparam); $index++) {
                 array_push($fparam, $allparam[$index]);
             }
-            $allProjectRows = $this->getrows("SELECT  * FROM  projectall  WHERE $where", $fparam);
+            $allProjectRows = $this->select("projectall",$where,$fparam);
+            // $this->getrows("SELECT  * FROM  projectall  WHERE $where", $fparam);
             if (count($allProjectRows) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;

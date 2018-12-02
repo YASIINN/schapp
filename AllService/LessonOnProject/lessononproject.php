@@ -8,7 +8,7 @@ class LessonOnProject extends database
    public function GETP($where, $wparam)
    {
       if (isset($_SESSION["UNM"])) {
-         $lessonRows = $this->getrows("SELECT  * FROM  projectonlesson pl  INNER JoIN projectall pa
+         $lessonRows= $this->getrows("SELECT  * FROM  projectonlesson pl  INNER JoIN projectall pa
             on pl.pjid=pa.pjid    INNER JoIN user u on u.uid=pa.uid   WHERE  $where", array($wparam));
          if (count($lessonRows) == 0) {
             $this->result = array("status" => "None");
