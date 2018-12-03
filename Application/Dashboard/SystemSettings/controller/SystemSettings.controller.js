@@ -145,6 +145,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (e) {
                                 width: "90px",
                                 type: "Unstyled",
                                 press: function () {
+                                    _this.byId("showid").setIcon("sap-icon://show");
+                                    _this.byId("passid").setType("Password");
                                     _this.passvalidate.close();
                                 }
                             }).addStyleClass("sapUiSmallMarginEnd")

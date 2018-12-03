@@ -45,8 +45,7 @@ $tablerelation = array("lcruid", "uid", "uid","uid");
 $asd=$db->getrows("SELECT  * FROM  
 activeprojectonuser ap INNER JOIN projectall p on ap.pjid=p.pjid 
 INNER JOIN user u on p.uid=u.uid 
-INNER JOIN projectonlesson pl on pl.pjid=p.pjid 
-            INNER JOIN lesson l on l.lid=pl.lid
+
 
 WHERE ap.uid=?",array(105));
 print_r($asd);

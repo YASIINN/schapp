@@ -9,7 +9,7 @@ class ActivePonUser extends database
     {
         if (isset($_SESSION["UNM"])) {
             for ($i = 0; $i < count($apudata); $i++) {
-                $data = array("pjid" => $apudata[$i]['pjid'], "uid" => $apudata[$i]['uid'], "sid" => $apudata[$i]['sid']);
+                $data = array("pjid" => $apudata[$i]['pjid'], "uid" => $apudata[$i]['uid'], "sid" => $apudata[$i]['sid'],"seqnmbr"=>$apudata[$i]['seqnmbr']);
                 $adduprows = $this->insert('activeprojectonuser', $data);
             }
             if ($adduprows) {
@@ -45,7 +45,7 @@ class ActivePonUser extends database
             INNER JOIN user u on p.uid=u.uid
             INNER JOIN projectonlesson pl on pl.pjid=p.pjid 
             INNER JOIN lesson l on l.lid=pl.lid
-            WHERE $where", array($id));
+            WHERE $where ORDER BY ap.seqnmbr ASC", array($id));
             if (count($projrows) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;
@@ -63,6 +63,7 @@ class ActivePonUser extends database
                         "pjquota" => $projrows[$i]["pjquota"],
                         "lnm" => $projrows[$i]["lnm"],
                         "lid" => $projrows[$i]["lid"],
+                        "seqnmbr" => $projrows[$i]["seqnmbr"],
                     );
                 }
                 return $this->result;

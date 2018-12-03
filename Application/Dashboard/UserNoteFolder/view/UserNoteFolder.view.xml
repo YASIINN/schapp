@@ -28,6 +28,7 @@
                                             <core:Icon size="2rem" src="sap-icon://pdf-attachment" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" />
                                             <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
                                               <Button type="Transparent"  text="{tfname} Numaralı Öğrencinin Transkripti" press="getTranskriptFolder" />
+                                            <Label text="{ufnm} {ulnm}"/>
                                             </VBox>
                                         </HBox>
                                     </CustomListItem>

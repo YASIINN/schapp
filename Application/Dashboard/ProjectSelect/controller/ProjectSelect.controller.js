@@ -92,31 +92,52 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 }
             })
         },
-        sort: function (oEvent) {
+        onDelete: function (oEvent) {
+            var splicedata = oEvent.mParameters.listItem.oBindingContexts.undefined.sPath.split("/")[2];
+            var result = oModel.oData.sorting.splice(splicedata, 1)
+            oModel.refresh();
+        },
+        chechkSort: function () {
             var _this = this
             debugger
-            //    var found = _this.sortData.every(function (x) {
-            //         if (x.getKey() == oModel.oData.sPath[sPathArr.length - 1].TSID) return false
-            //         else return true
-            //     })
-
+            if (!oModel.oData.sorting) {
+                sap.m.MessageToast.show("Lütfen Proje Tercih İşlemlerini Tamamlayınız")
+                _this.byId("idIconTabBarSeparatorNoIcon").getItems()[6].setEnabled(false);
+                return false
+            }
+            else if (oModel.oData.SysSetProjSelect[0].pjscontenjan != oModel.oData.sorting.length) {
+                sap.m.MessageToast.show("Lütfen Proje Tercih İşlemlerini Tamamlayınız")
+                _this.byId("idIconTabBarSeparatorNoIcon").getItems()[6].setEnabled(false);
+                return false;
+            } else {
+                _this.byId("idIconTabBarSeparatorNoIcon").getItems()[6].setEnabled(true);
+                _this.byId("idIconTabBarSeparatorNoIcon").setSelectedKey("check");
+                return true;
+            }
+        },
+        sort: function (oEvent) {
+            var _this = this
             if (!_this.sortData.length) {
                 _this.sortData.push(oModel.getProperty(oEvent.oSource._getBindingContext().sPath));
             } else {
-                for (let index = 0; index < _this.sortData.length; index++) {
-                    
+                var found = _this.sortData.every(function (x) {
+                    if (x.pjid == oModel.getProperty(oEvent.oSource._getBindingContext().sPath).pjid) return false
+                    else return true
+                })
+                if (found && _this.sortData.length < oModel.oData.SysSetProjSelect[0].pjscontenjan) {
+                    _this.sortData.push(oModel.getProperty(oEvent.oSource._getBindingContext().sPath));
+                } else {
+                    sap.m.MessageToast.show("Lütfen Proje Tercih Sıranızı Ve Seçimlerinizi Kontrol Ediniz")
                 }
             }
-            //     _this.sortData.forEach(function (x) {
-            //         if (x.pjid != oModel.getProperty(oEvent.oSource._getBindingContext().sPath).pjid) {
-            //           
-            //         }
-            //     })
-            // }
+            for (let index = 0; index < _this.sortData.length; index++) {
+                debugger
+                _this.sortData[index].seqnmbr = index + 1;
 
+            }
             oModel.setProperty("/sorting", _this.sortData);
         },
-        saveProject: function () {
+        saveProject: function (control) {
             var _this = this
             var result = true;
             var Table = this.byId("idactivesproject");
@@ -140,6 +161,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                         result = false;
                         CreateComponent.hideBusyIndicator()
                     } else {
+                        debugger
                         oModel.setProperty("/pjdata", JSON.parse(JSON.stringify(_this.pjdata)));
                         oModel.oData.pjdata.forEach(function (x) {
                             x.uid = oModel.oData.UserModel[0].uid
@@ -183,15 +205,63 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 return result;
             }
         },
+        changekey: function (oEvent) {
+            var _this = this
+            var tabicon = _this.byId("idIconTabBarSeparatorNoIcon");
+            // if (oEvent.oSource.getSelectedKey() == "project") {
+            //     tabicon.getItems()[2].setEnabled(false);
+            //     tabicon.getItems()[4].setEnabled(false);
+            //     tabicon.getItems()[6].setEnabled(false);
+            // }else if()
+            switch (oEvent.oSource.getSelectedKey()) {
+                case "project":
+                    delete oModel.oData.userpoint
+                    tabicon.getItems()[2].setEnabled(false);
+                    tabicon.getItems()[4].setEnabled(false);
+                    tabicon.getItems()[6].setEnabled(false);
+                    tabicon.getItems()[8].setEnabled(false);
+                    oModel.refresh()
+                    break;
+
+                case "point":
+                    tabicon.getItems()[4].setEnabled(false);
+                    tabicon.getItems()[6].setEnabled(false);
+                    tabicon.getItems()[8].setEnabled(false);
+                    oModel.refresh()
+                    _this.sortData = [];
+                    oModel.setProperty("/sorting", _this.sortData)
+                    break;
+                case "sort":
+                    oModel.refresh()
+                    delete oModel.oData.fdata
+                    tabicon.getItems()[6].setEnabled(false);
+                    tabicon.getItems()[8].setEnabled(false);
+                    break;
+                case "check":
+                    oModel.refresh()
+                    tabicon.getItems()[8].setEnabled(false);
+                    break;
+                    case "file":
+                    tabicon.getItems()[8].setEnabled(true);
+                    oModel.refresh();
+                    break;
+            }
+        },
+        acceptCheck: function (oEvent) {
+            var _this = this
+            _this.byId("idIconTabBarSeparatorNoIcon").getItems()[8].setEnabled(true);
+            _this.byId("idIconTabBarSeparatorNoIcon").setSelectedKey("file");
+        },
         projectcheck: function () {
             var _this = this
             var res = true;
             if (_this.saveProject() == true) {
-                _this._wizard.validateStep(this.byId("ProjectStep"));
+                _this.byId("idIconTabBarSeparatorNoIcon").getItems()[2].setEnabled(true);
+                _this.byId("idIconTabBarSeparatorNoIcon").setSelectedKey("point");
                 res = true;
             } else {
                 oModel.setProperty("/pjdata", []);
-                _this._wizard.invalidateStep(this.byId("ProjectStep"));
+                _this.byId("idIconTabBarSeparatorNoIcon").getItems()[2].setEnabled(false);
                 res = false;
             }
             return res;
@@ -200,11 +270,12 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             var _this = this
             var res = true;
             if (_this.userpoint() == true) {
-                _this._wizard.validateStep(this.byId("PointStep"));
                 res = true;
-
+                _this.byId("idIconTabBarSeparatorNoIcon").getItems()[4].setEnabled(true);
+                _this.byId("idIconTabBarSeparatorNoIcon").setSelectedKey("sort");
+                debugger
             } else {
-                _this._wizard.invalidateStep(this.byId("PointStep"));
+                _this.byId("idIconTabBarSeparatorNoIcon").getItems()[4].setEnabled(false);
                 res = false;
             }
             return res;
@@ -243,12 +314,19 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             if (!oModel.oData.fdata) {
                 sap.m.MessageToast.show("Lütfen Pdf Dosyası Yükleyiniz.")
             }
-            else if (_this.projectcheck() == false) {
-                /*sap.m.MessageToast.show("Proje Seçim Ekranında Hata")*/
-            } else if (_this.userpointcheck() == false) {
-                /* sap.m.MessageToast.show("Not Girme Ekranında Hata")*/
-            }
+
+            // else if (_this.projectcheck() == false) {
+            //     /*sap.m.MessageToast.show("Proje Seçim Ekranında Hata")*/
+            // } else if (_this.userpointcheck() == false) {
+            //     /* sap.m.MessageToast.show("Not Girme Ekranında Hata")*/
+            // } else if (_this.chechkSort() == false) {
+
+            // }
             else {
+                delete oModel.oData.pjdata
+                debugger
+                oModel.setProperty("/pjdata", oModel.oData.sorting);
+                debugger
                 _this.uploadPdfFile().then(function (res) {
                     if (res == false) {
                     }
@@ -383,13 +461,15 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                     sap.m.MessageToast.show("Beklenmeyen Bir Hata Gerçekleşti.")
                 } else {
                     sap.m.MessageToast.show("Proje Seçim İşleminiz Başarıyla Tamamlandı")
-                    var wizard = _this.byId("wizardd");
                     window.location.reload();
-                    wizard.setCurrentStep("__xmlview1--ProjectStep")
-                    _this._wizard.invalidateStep(_this.byId("ProjectStep"));
-                    _this.byId("idactivesproject").setMode(sap.m.ListMode.MultiSelect);
-                    _this.byId("savedata").setVisible(false)
+                    _this.byId("savedata").setVisible(true)
                     _this.byId("idactivesproject").removeSelections(true);
+                    _this.byId("idactivesproject").setMode(sap.m.ListMode.None);
+                    var tabicon = _this.byId("idIconTabBarSeparatorNoIcon");
+                    tabicon.getItems()[2].setEnabled(false);
+                    tabicon.getItems()[4].setEnabled(false);
+                    tabicon.getItems()[6].setEnabled(false);
+                    tabicon.getItems()[8].setEnabled(false);
                     CreateComponent.hideBusyIndicator();
                     _this.getActiveProject();
                     UseronLogin.onLogin().then(function (res) {
@@ -404,12 +484,11 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                     MN: "ADD",
                     SN: "UploadPdf",
                     "file": _this.b64,
+                    tfperiod:new Date().toLocaleDateString().split(".")[2],
                     tfuid: oModel.oData.UserModel[0].uid,
                     tfname: oModel.oData.UserModel[0].unm,
                     tfsize: _this.size,
-                    // oModel.oData.fdata.size,
                     tftype: _this.type
-                    //  oModel.oData.fdata.type
                 }).then(function (res) {
                     if (res == "SuccesAdd") {
                         resolve(true);
@@ -432,7 +511,6 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 if (typeof (FileReader) != "undefined") {
                     reader.onload = function (evn) {
                         dt = evn.target.result;
-                        console.log(dt);
                         _this.b64 = dt.substring(28);
                         resolve(true)
                     }
@@ -472,22 +550,49 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             })
             return deferred;
         },
+        // onAfterRendering: function () {
+        //     var _this = this
+        //     var oPage = this.getView().byId("wizardContentPage");
+        //     debugger
+        //     $("#"+oPage.sId+" section").scroll(function(oEvent) {
+        //         debugger
+        //         var wstep=_this.byId("wizardd");
+
+        //         console.log( wstep.getCurrentStep());
+        //         // for (let index = 0; index < wstep.getSteps().length; index++) {
+        //         //     const element = array[index];
+
+        //         // }
+        //         // wstep.getSteps()[0].sId
+        //         debugger
+
+        //     });
+
+        //     //    oPage.attachBrowserEvent("window.scroll", function(oEvent) {
+        //     //            console.log("onscoll");
+        //     //           });	
+        // },
         onBeforeShow: function (argument) {
             var _this = this;
+            var tabicon = _this.byId("idIconTabBarSeparatorNoIcon");
+            tabicon.getItems()[2].setEnabled(false);
+            tabicon.getItems()[4].setEnabled(false);
+            tabicon.getItems()[6].setEnabled(false);
+            tabicon.getItems()[8].setEnabled(false);
             UseronLogin.onLogin().then(function (res) {
                 if (oModel.oData.UserModel[0].quotaremain == "0") {
-                    var wizard = _this.byId("wizardd");
-                    wizard.setCurrentStep("__xmlview1--ProjectStep")
-                    _this._wizard.invalidateStep(_this.byId("ProjectStep"));
+                    // var wizard = _this.byId("wizardd");
+                    // wizard.setCurrentStep("__xmlview1--ProjectStep")
+                    // _this._wizard.invalidateStep(_this.byId("ProjectStep"));
                     _this.byId("idactivesproject").setMode(sap.m.ListMode.None);
                     _this.byId("savedata").setVisible(false)
                 }
                 else {
-                    var wizard = _this.byId("wizardd");
-                    wizard.setCurrentStep("__xmlview1--ProjectStep")
-                    _this._wizard.invalidateStep(_this.byId("ProjectStep"));
-                    _this.byId("idactivesproject").setMode(sap.m.ListMode.MultiSelect);
-                    _this.byId("savedata").setVisible(true)
+                    // var wizard = _this.byId("wizardd");
+                    // wizard.setCurrentStep("__xmlview1--ProjectStep")
+                    // _this._wizard.invalidateStep(_this.byId("ProjectStep"));
+                    // _this.byId("idactivesproject").setMode(sap.m.ListMode.MultiSelect);
+                    // _this.byId("savedata").setVisible(true)
                 }
                 _this.getActiveProject();
             })

@@ -49,7 +49,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/export/Spreadsheet", 'sap/u
                                         lnm += data[pjid[index]][j].lnm
                                         lid += data[pjid[index]][j].lid
                                         data[pjid[index]].splice(1, data[pjid[index]].length)
-        
+
                                     } else {
                                         lid += data[pjid[index]][j].lid + ","
                                         lnm += data[pjid[index]][j].lnm + ","
@@ -63,8 +63,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/export/Spreadsheet", 'sap/u
                                     data[pjid[index]][0]
                                 )
                             }
-                            oModel.setProperty("/MyProjects", projdata)
-                            // oModel.setProperty("/MyProjects", res);
+                            oModel.setProperty("/MyProjects",_.sortBy(projdata, "seqnmbr"))
                             CreateComponent.hideBusyIndicator();
                         }
                     })

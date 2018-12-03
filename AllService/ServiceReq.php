@@ -231,7 +231,7 @@ if ($SN == "UploadPdf") {
     include("/UploadPdf/uploadpdf.php");
     $file = new $SN();
     if ($MN == "ADD") {
-        $result = $file->$MN($_POST['file'], $_POST['tfuid'], $_POST['tfname'], $_POST['tfsize'], $_POST['tftype']);
+        $result = $file->$MN($_POST['file'], $_POST['tfuid'], $_POST['tfname'], $_POST['tfsize'], $_POST['tftype'],$_POST['tfperiod']);
     } else if ($MN == "DEL") {
         $issetparam = "";
         if (isset($_POST['param'])) {
