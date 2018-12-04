@@ -76,7 +76,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                     var spath = _this.byId("idacceptusers").getRows()[selected[index]]._getBindingContext().sPath
                     mdata.push({
                         "mail": oModel.getProperty(spath).rtemail,
-                        "messega": "Kaydınız  Onaylandı Şifreniz TC KİMLİK NUMARANIZ olarak Belirlenmiştir."
+                        "messega": "Kaydınız  Onaylandı Şifreniz TC KİMLİK NUMARANIZ olarak Belirlenmiştir.",
+                         "subject":"KAYDINIZ ONAYLANDI.LÜTFEN BU MESAJI CEVAPLANDIRMAYINIZ."   
                     })
                     rdata.push({
                         rtemail: oModel.getProperty(spath).rtemail,

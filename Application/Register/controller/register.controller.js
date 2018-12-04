@@ -101,8 +101,8 @@ sap.ui.define(['sap/m/MessageBox', 'sap/ui/core/mvc/Controller'], function (Mess
                     RegisterService.RegisterReq({ "where": 'rtrcode=?', param: [res[0].activationkey], "MN": "GET", "SN": "Register" }).then(function (res) {
                         oModel.setProperty("/userRegister", res);
                         oModel.setProperty("/RegisterModel", [])
-                        var msg = "Aktivitasyon kodu :" + oModel.oData.userRegister[0].rtrcode + "Kaydınız Onaylandıktan Sonra Size Mail İle Bildirim Yapılacaktır.";
-                        MailService.AddMail({ "maildata": [{ "mail": oModel.oData.userRegister[0].rtemail, "messega": msg }] }).then(function (res) {
+                        var msg = "Aktivitasyon kodu :" + oModel.oData.userRegister[0].rtrcode + "Kaydınız Onaylandıktan Sonra Size Mail İle Bildirim Yapılacaktır.LÜTFEN BU MESAJI CEVAPLANDIRMAYINIZ.";
+                        MailService.AddMail({ "maildata": [{ "mail": oModel.oData.userRegister[0].rtemail, "messega": msg ,"subject":"KAYIT DOĞRULAMA KODU"}] }).then(function (res) {
                             if (res == "None") {
                                 resolve(false);
                                 sap.m.MessageToast.show("Mail Gönderilirken Bir Hata Oluştu");

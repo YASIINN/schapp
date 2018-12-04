@@ -23,6 +23,7 @@
         $ead = $_POST['maildata'][0]['mail'];
         $epass = $_POST['maildata'][0]['epass'];
         $messega = $_POST['maildata'][0]['messega'];
+        $subject= $_POST['maildata'][0]['subject'];
         $mail->addAddress($ead, 'Email Adres Değişimi');
     } else {
         $db = new database("root", "", "localhost", "bitirmeproje");
@@ -32,16 +33,18 @@
         $maildata = $_POST['maildata'];
         for ($i = 0; $i < count($maildata); $i++) {
             $umail = $maildata[$i]['mail'];
+            $subject= $maildata[$i]['subject'];
             $messega = $maildata[$i]['messega'];
             $mail->addAddress($umail, 'Kişisel');
         }
     }
     $mail->Username = $ead;
     $mail->Password = $epass;
-    $mail->setFrom($ead, 'Kayıt Doğrulama');
+    $mail->setFrom($ead, 'CUMHURİYET ÜNİVERSİTESİ');
     $mail->addReplyTo($ead, 'Bilgi');
     $mail->isHTML(true);
-    $mail->Subject = 'Kayıt Aktivitasyon Kodu';
+    $mail->Subject =$subject;
+     // 'Kayıt Aktivitasyon Kodu';
     $mail->Body = $messega;
     $mail->AltBody = ' ';
     if ($mail->Send()) {

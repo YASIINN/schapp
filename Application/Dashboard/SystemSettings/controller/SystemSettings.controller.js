@@ -167,7 +167,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (e) {
             }
             else {
                 CreateComponent.showBusyIndicator();
-                MailService.AddMail({ "systemcheck": [], "maildata": [{ "mail": oModel.oData.SysSettings[0].emailaddres, "messega": "Email Doğrulama", "epass": oModel.oData.SysSettings[0].emailpass }] }).then(function (res) {
+                MailService.AddMail({ "systemcheck": [], "maildata": [{ "mail": oModel.oData.SysSettings[0].emailaddres, "messega": "Email Doğrulama", "epass": oModel.oData.SysSettings[0].emailpass,"subject":"KİMLİĞİNİZİ DOĞRULAMAK İÇİN BU MESAJ GÖNDERİLMİŞTİR." }] }).then(function (res) {
                     if (res == "None" || res == "") {
                         CreateComponent.hideBusyIndicator();
                         sap.m.MessageToast.show("Email Adresiniz Veya Parolanız Yanlış");
