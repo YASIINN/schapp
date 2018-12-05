@@ -1,138 +1,146 @@
 <mvc:View controllerName="schapp.Application.Dashboard.AllProjects.controller.AllProjects" 
 	xmlns="sap.ui.table" 
-	xmlns:l="sap.ui.layout"
+	xmlns:l="sap.ui.layout" 
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns:u="sap.ui.unified" 
 	xmlns:core="sap.ui.core" 
 	xmlns:m="sap.m" height="100%" class="sapUiSizeCompact">
 	<m:Page id="page" showHeader="false" enableScrolling="false">
 		<m:content>
-		<l:FixFlex>
-			<l:fixContent>
-				<m:VBox>
-					<m:Toolbar height="2rem" class="sapUiTinyMarginBottom">
-						<m:HBox alignItems="Center" justifyContent="Start" class="sapUiTinyMarginTop">
-							<core:Icon src="sap-icon://order-status" color="#325e86" size="18px"></core:Icon>
-							<m:Title class="userInfoPanelTitle" text="Tüm Projeler"/>
-						</m:HBox>
-						<m:VBox>
-							<m:HBox>
-								<m:SegmentedButton selectedKey="All" id="segmented" selectionChange="onChangeProject">
-									<m:items>
-										<m:SegmentedButtonItem text="Tüm Projeler" key="All" />
-										<m:SegmentedButtonItem text="Benim Projelerim" key="Me" width="150px"/>
-										<m:SegmentedButtonItem text="Aktif Projeler" key="Active" width="150px"/>
-									</m:items>
-								</m:SegmentedButton>
+			<l:FixFlex>
+				<l:fixContent>
+					<m:VBox>
+						<m:Toolbar height="2rem" class="sapUiTinyMarginBottom">
+							<m:HBox alignItems="Center" justifyContent="Start" class="sapUiTinyMarginTop">
+								<core:Icon src="sap-icon://order-status" color="#325e86" size="18px"></core:Icon>
+								<m:Title class="userInfoPanelTitle" text="Tüm Projeler"/>
 							</m:HBox>
-						</m:VBox>
-					</m:Toolbar>
-					<m:HBox alignItems="Center" justifyContent="Start">
-						<m:SearchField placeholder="Ara.." id="searchBar" width="250px" liveChange="onSearch"/>
-						<m:Button tooltip="Excel Raporu Al" icon="sap-icon://excel-attachment" type="Transparent" press="onExport" class="sapUiTinyMarginEnd"/>
-						<m:Button text="" press="onRefreshData" type="Transparent" icon="sap-icon://refresh" tooltip="Yenile" id="refresh" />
-							<m:Select forceSelection="false" id="yid" width="400px" selectedKey="/years/0/yk" 
-							items="{
-						path: '/years'
-					}"
-							>
-							<core:Item key="yk" text="ytxt" />
-					</m:Select>
-					</m:HBox>
-					<m:Select forceSelection="false" id="fid" width="100%" selectedKey="All" change="changeFilter">
-						<core:Item key="All" text="Tümü" />
-						<core:Item key="Active" text="Aktif" />
-						<core:Item key="DeActive" text="Pasif" />
-					</m:Select>
-					<m:Toolbar id="meHeader" visible="false">
-						<m:content>
-							<m:Button text="Seçilileri Onayla" press="AcceptProject" type="Transparent" icon="sap-icon://accept"/>
-							<m:Button text="Seçilileri Onaydan Kaldır" press="AcceptProject" type="Transparent" icon="sap-icon://decline"/>
-							<m:ToolbarSpacer />
-						</m:content>
-					</m:Toolbar>
-				</m:VBox>
-			</l:fixContent>
-			<l:flexContent>
-				<m:VBox>
-					<Table id="idprojectAll" visibleRowCount="10" visibleRowCountMode="Fixed" selectionMode="None" enableColumnReordering='false' ariaLabelledBy="title">
-						<contextMenu>
-							<m:Menu>
-								<m:items>
-									<m:MenuItem text="İlgili Dersler" press="rightClick" id="pl" />
-									<m:MenuItem text="Proje Bilgisi" visible="false" id="pb" press="rightClick" />
-									<m:MenuItem text="Projeyi Sil" visible="false" id="pd" press="rightClick" />
-								</m:items>
-							</m:Menu>
-						</contextMenu>
-						<columns >
-							<Column width="9rem">
-								<m:Label text="Proje ID" />
-								<template>
-									<m:Text wrapping="false" text="{pjid}" />
-								</template>
-							</Column>
-							<Column width="9rem" visible="true" id="Meid">
-								<m:Label text="Proje Öneri Sahibi" />
-								<template>
-									<m:Text wrapping="false" tooltip="{ufnm}" text="{ufnm}" />
-								</template>
-							</Column>
-							<Column width="9rem">
-								<m:Label text="Proje Adı" />
-								<template>
-									<m:Text wrapping="false"  tooltip="{pjnm}" text="{pjnm}" />
-								</template>
-							</Column>
-							<Column width="9rem">
-								<m:Label text="Proje İçeriği" />
-								<template>
-									<m:Text wrapping="false" tooltip="{pjcntn}" text="{pjcntn}" />
-								</template>
-							</Column>
-							<Column width="9rem">
-								<m:Label text="Proje Teknolojileri" />
-								<template>
-									<m:Text wrapping="false"  tooltip="{pjtechnology}" text="{pjtechnology}" />
-								</template>
-							</Column>
-							<Column width="9rem">
-								<m:Label text="Proje Dönemi" />
-								<template>
-									<m:Text wrapping="false" text="{pjperiod}" />
-								</template>
-							</Column>
-							<Column width="9rem" id="apper">
-								<m:Label text="Proje Aktif Dönemi" />
-								<template>
-									<m:Text wrapping="false" text="{apperiod}" />
-								</template>
-							</Column>
-								<Column width="9rem">
-								<m:Label text="Proje Kontenjan" />
-								<template>
-									<m:Text wrapping="false" text="{pjquota}" />
-								</template>
-							</Column>
-						</columns>
-					</Table>
-					<m:HBox class="footerToolbar" alignItems="Center" justifyContent="Stretch" width="100%">
-						<m:HBox width="40%" alignItems="Center" justifyContent="Start">
-							<m:Text text="Gösterilecek Kayıt Sayısı :"/>
-							<m:Select forceSelection="false" id="rid" width="100%" selectedKey="10"  change="changePaginator">
-								<core:Item key="10" text="10" />
-								<core:Item key="25" text="25" />
-								<core:Item key="50" text="50" />
-								<core:Item key="100" text="100" />
+							<m:VBox>
+								<m:HBox>
+									<m:SegmentedButton selectedKey="All" id="segmented" selectionChange="onChangeProject">
+										<m:items>
+											<m:SegmentedButtonItem text="Tüm Projeler" key="All" />
+											<m:SegmentedButtonItem text="Benim Projelerim" key="Me" width="150px"/>
+											<m:SegmentedButtonItem text="Aktif Projeler" key="Active" width="150px"/>
+										</m:items>
+									</m:SegmentedButton>
+								</m:HBox>
+							</m:VBox>
+						</m:Toolbar>
+						<m:HBox alignItems="Center" justifyContent="Start">
+							<m:SearchField placeholder="Ara.." id="searchBar" width="250px" liveChange="onSearch"/>
+							<m:Button tooltip="Excel Raporu Al" icon="sap-icon://excel-attachment" type="Transparent" press="onExport" class="sapUiTinyMarginEnd"/>
+							<m:Button text="" press="onRefreshData" type="Transparent" icon="sap-icon://refresh" tooltip="Yenile" id="refresh" />
+						</m:HBox>
+						<m:HBox id="dateid">
+							<m:Text text="Proje Gösterim Yılı" class="sapUiTinyMarginTop"/>
+							<m:Select forceSelection="false" id="yid" width="100px" selectedKey="ay" change="changeDate" class="sapUiTinyMarginBegin">
+								<core:Item key="ay" text="Aktif Yıl" />
+								<core:Item key="othr" text="Diğer" />
+							</m:Select>
+							<m:Text text="Başlangıç Tarih" class="sapUiTinyMarginTop sapUiTinyMarginBegin"/>	
+							<m:DatePicker class="sapUiTinyMarginBegin" id="start" value="{/begdt}" change="datecontrol" />
+									<m:Text text="Bitiş Tarih" class="sapUiTinyMarginTop sapUiLargeMarginBegin"/>	
+							<m:DatePicker  id="end" class="sapUiTinyMarginBegin" value="{/enddt}"  change="datecontrol"   />
+						</m:HBox>
+
+						<m:HBox>
+							<m:Text text="Proje Durumu" class="sapUiTinyMarginTop"/>
+							<m:Select forceSelection="false" id="fid" width="100px" selectedKey="All" class="sapUiLargeMarginBegin" change="changeFilter">
+								<core:Item key="All" text="Tümü" />
+								<core:Item key="Active" text="Aktif" />
+								<core:Item key="DeActive" text="Pasif" />
 							</m:Select>
 						</m:HBox>
-						<m:HBox width="60%" alignItems="Center" justifyContent="Start" id="footerToolbar">
+						<m:Toolbar id="meHeader" visible="false">
+							<m:content>
+								<m:Button text="Seçilileri Onayla" press="AcceptProject" type="Transparent" icon="sap-icon://accept"/>
+								<m:Button text="Seçilileri Onaydan Kaldır" press="AcceptProject" type="Transparent" icon="sap-icon://decline"/>
+								<m:ToolbarSpacer />
+							</m:content>
+						</m:Toolbar>
+					</m:VBox>
+				</l:fixContent>
+				<l:flexContent>
+					<m:VBox>
+						<Table id="idprojectAll" visibleRowCount="10" visibleRowCountMode="Fixed" selectionMode="None" enableColumnReordering='false' ariaLabelledBy="title">
+							<contextMenu>
+								<m:Menu>
+									<m:items>
+										<m:MenuItem text="İlgili Dersler" press="rightClick" id="pl" />
+										<m:MenuItem text="Proje Bilgisi" visible="false" id="pb" press="rightClick" />
+										<m:MenuItem text="Projeyi Sil" visible="false" id="pd" press="rightClick" />
+									</m:items>
+								</m:Menu>
+							</contextMenu>
+							<columns >
+								<Column width="9rem">
+									<m:Label text="Proje ID" />
+									<template>
+										<m:Text wrapping="false" text="{pjid}" />
+									</template>
+								</Column>
+								<Column width="9rem" visible="true" id="Meid">
+									<m:Label text="Proje Öneri Sahibi" />
+									<template>
+										<m:Text wrapping="false" tooltip="{ufnm}" text="{ufnm}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Proje Adı" />
+									<template>
+										<m:Text wrapping="false" tooltip="{pjnm}" text="{pjnm}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Proje İçeriği" />
+									<template>
+										<m:Text wrapping="false" tooltip="{pjcntn}" text="{pjcntn}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Proje Teknolojileri" />
+									<template>
+										<m:Text wrapping="false" tooltip="{pjtechnology}" text="{pjtechnology}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Proje Dönemi" />
+									<template>
+										<m:Text wrapping="false" text="{pjperiod}" />
+									</template>
+								</Column>
+								<Column width="9rem" id="apper">
+									<m:Label text="Proje Aktif Dönemi" />
+									<template>
+										<m:Text wrapping="false" text="{apperiod}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Proje Kontenjan" />
+									<template>
+										<m:Text wrapping="false" text="{pjquota}" />
+									</template>
+								</Column>
+							</columns>
+						</Table>
+						<m:HBox class="footerToolbar" alignItems="Center" justifyContent="Stretch" width="100%">
+							<m:HBox width="40%" alignItems="Center" justifyContent="Start">
+								<m:Text text="Gösterilecek Kayıt Sayısı :"/>
+								<m:Select forceSelection="false" id="rid" width="100%" selectedKey="10" change="changePaginator">
+									<core:Item key="10" text="10" />
+									<core:Item key="25" text="25" />
+									<core:Item key="50" text="50" />
+									<core:Item key="100" text="100" />
+								</m:Select>
+							</m:HBox>
+							<m:HBox width="60%" alignItems="Center" justifyContent="Start" id="footerToolbar">
 
+							</m:HBox>
 						</m:HBox>
-					</m:HBox>
-				</m:VBox>
-			</l:flexContent>
-		</l:FixFlex>			
+					</m:VBox>
+				</l:flexContent>
+			</l:FixFlex>
 		</m:content>
 	</m:Page>
 </mvc:View>

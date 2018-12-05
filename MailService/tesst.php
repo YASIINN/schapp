@@ -42,12 +42,7 @@ $tablerelation = array("lcruid", "uid", "uid","uid");
 // activeprojectonuser ap INNER JOIN projectall p on ap.pjid=p.pjid 
 // INNER JOIN user u on p.uid=u.uid
 // WHERE $where", array($id));
-$asd=$db->getrows("SELECT  * FROM  
-activeprojectonuser ap INNER JOIN projectall p on ap.pjid=p.pjid 
-INNER JOIN user u on p.uid=u.uid 
-
-
-WHERE ap.uid=?",array(105));
+$asd=$db->getrows("SELECT * FROM `activeproject` WHERE apperiod >=? AND apperiod <=?",array("2016","2018"));
 print_r($asd);
 // $query=jtable($table, $tablerelation);
 // $q2="SELECT * FROM".$query;

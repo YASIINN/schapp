@@ -13,7 +13,8 @@ class ActiveProject extends database
                 "uflag" => $pjdata[$i]['uflag'],
                 "apperiod" => $pjdata[$i]['apperiod'],
                 'quotaremaning' => $pjdata[$i]['quotaremaning'],
-                "apconstqouta" => $pjdata[$i]['apconstqouta']
+                "apconstqouta" => $pjdata[$i]['apconstqouta'],
+                "apcreatedper" => $pjdata[$i]['apcreatedper'],
             );
             $ActiveProjectRows = $this->insert('activeproject', $data);
         }
@@ -51,6 +52,7 @@ class ActiveProject extends database
                         "pjquota" => $activeProject[$i]["pjquota"],
                         "quotaremaning" => $activeProject[$i]["quotaremaning"],
                         "apconstqouta" => $activeProject[$i]["apconstqouta"],
+                        'apcreatedper'=>$activeProject[$i]["apcreatedper"],
                     );
                 }
             }

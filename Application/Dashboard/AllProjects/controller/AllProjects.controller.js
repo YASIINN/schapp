@@ -7,6 +7,9 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
         onInit: function () {
             var _this = this;
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            oModel.setProperty("/begdt", new Date().toLocaleDateString())
+            oModel.setProperty("/enddt", new Date().toLocaleDateString())
+            _this.byId("end").setMinDate(new Date(parseInt(oModel.oData.begdt.split(".")[2]), parseInt(oModel.oData.begdt.split(".")[1] - 1), parseInt(oModel.oData.begdt.split(".")[0])));
             oRouter.getRoute("Dashboard/AllProjects").attachPatternMatched(_this.onBeforeShow, _this);
         },
         rightClick: function (oEvent) {
@@ -25,6 +28,27 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                         sap.m.MessageToast.show("Yayında Olan Projeleri Silemezsiniz.")
                     }
                 })
+            }
+        },
+        datecontrol: function (oEvent) {
+            var _this = this
+            // var minDate = new Date(moment(_this.byId("start").getValue())._d)
+            // var maxDate = new Date(moment(oModel.oData.enddt)._d)
+            var oDP = oEvent.oSource;
+            var sValue = oEvent.getParameter("value");
+            var bValid = oEvent.getParameter("valid");
+            this._iEvent++;
+            if (bValid) oDP.setValueState(sap.ui.core.ValueState.None);
+            else oDP.setValueState(sap.ui.core.ValueState.Error);
+            var dPicker3 = this.byId('start');
+            var dPicker4 = this.byId('end');
+            if (dPicker3.mAggregations.layoutData.oParent.mProperties.valueState != "Error" && dPicker4.mAggregations.layoutData.oParent.mProperties.valueState != "Error") {
+                _this.byId("end").setMinDate(new Date(parseInt(oModel.oData.begdt.split(".")[2]), parseInt(oModel.oData.begdt.split(".")[1] - 1), parseInt(oModel.oData.begdt.split(".")[0])));
+                if (oEvent.oSource.sId.split("--")[1] == "start" && parseInt(oModel.oData.begdt.split(".")[2]) > parseInt(oModel.oData.enddt.split(".")[2])) {
+                    oModel.setProperty("/enddt", oModel.oData.begdt)
+                }
+                // dPicker3.setMaxDate(maxDate);
+                // dPicker4.setMinDate(minDate);
             }
         },
         delProject: function (param) {
@@ -62,14 +86,17 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 _this.byId("apper").setVisible(false);
                 _this.byId("pb").setVisible(false)
                 _this.byId("pd").setVisible(false)
+                _this.byId("dateid").setVisible(true);
                 _this.byId("fid").setSelectedKey("All")
             } else if (_this.byId("segmented").getSelectedKey() == "Me") {
                 _this.byId("pl").setVisible(true)
                 _this.byId("pb").setVisible(true)
                 _this.byId("pd").setVisible(true)
                 _this.byId("apper").setVisible(false);
+                _this.byId("dateid").setVisible(true);
                 _this.byId("fid").setSelectedKey("All")
             } else {
+                _this.byId("dateid").setVisible(false);
                 _this.byId("pl").setVisible(false)
                 _this.byId("apper").setVisible(true);
                 _this.byId("fid").setVisible(false)
@@ -92,49 +119,158 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             var filterdata = {};
             if (_this.byId("segmented").getSelectedKey() == "All") {
                 if (_this.byId("fid").getSelectedKey() == "Active") {
-                    filterdata.SN = "ActiveProject"
-                    filterdata.MN = "GET"
-                    _this.getActiveProject(filterdata)
-                } else if (_this.byId("fid").getSelectedKey() == "DeActive") {
-                    _this.getDeactive("GET").then(function (res) {
+                    if (_this.byId("yid").getSelectedKey() == "ay") {
+                        filterdata.SN = "ActiveProject";
                         filterdata.MN = "GETWHERE";
-                        filterdata.SN = "Project";
-                        filterdata.allparam = [" "];
-                        filterdata.where = "pjid NOT IN (" + res + ")";
-                        _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                        filterdata.where = "apperiod=?";
+                        filterdata.allparam = [new Date().toLocaleDateString().split(".")[2]];
+                        _this.getActiveProject(filterdata)
+
+                    } else {
+                        filterdata.SN = "ActiveProject";
+                        filterdata.MN = "GETWHERE";
+                        filterdata.where = "apperiod >=? AND apperiod <=?";
+                        filterdata.allparam = [oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                        _this.getActiveProject(filterdata)
+                    }
+                }
+                else if (_this.byId("fid").getSelectedKey() == "DeActive") {
+                    _this.getDeactive("GET").then(function (res) {
+                        if (res) {
+                            if (_this.byId("yid").getSelectedKey() == "ay") {
+                                filterdata.MN = "GETWHERE";
+                                filterdata.SN = "Project";
+                                filterdata.allparam = [" "];
+                                filterdata.where = "pjid NOT IN (" + res + ") AND pjperiod=" + new Date().toLocaleDateString().split(".")[2];
+                                _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                            } else {
+                                filterdata.MN = "GETWHERE";
+                                filterdata.SN = "Project";
+                                filterdata.allparam = [oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                                filterdata.where = "pjid NOT IN (" + res + ") AND pjperiod >=? AND pjperiod <=?";;
+                                _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+
+                            }
+                        }
                     })
                 } else {
-                    filterdata.SN = "Project";
-                    filterdata.MN = "GET";
-                    _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                    if (_this.byId("yid").getSelectedKey() == "ay") {
+                        filterdata.SN = "Project";
+                        filterdata.MN = "GETWHERE";
+                        filterdata.allparam = [new Date().toLocaleDateString().split(".")[2]];
+                        filterdata.where = "pjperiod=?"
+                        _this.getProject("All", filterdata)
+                    }
+                    else {
+                        filterdata.SN = "Project";
+                        filterdata.MN = "GETWHERE";
+                        filterdata.allparam = [oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                        filterdata.where = " pjperiod >=? AND pjperiod <=?";
+                        _this.getProject("All", filterdata)
+                    }
                 }
-            } else if (_this.byId("segmented").getSelectedKey() == "Me") {
+            }
+            else if (_this.byId("segmented").getSelectedKey() == "Me") {
                 if (_this.byId("fid").getSelectedKey() == "Active") {
-                    filterdata.SN = "ActiveProject";
-                    filterdata.MN = "GETWHERE";
-                    filterdata.where = "uid=?";
-                    filterdata.allparam = [oModel.oData.UserModel[0].uid];
-                    _this.getActiveProject(filterdata)
+                    if (_this.byId("yid").getSelectedKey() == "ay") {
+                        filterdata.SN = "ActiveProject";
+                        filterdata.MN = "GETWHERE";
+                        filterdata.where = "apperiod=? AND uid=?";
+                        filterdata.allparam = [new Date().toLocaleDateString().split(".")[2], oModel.oData.UserModel[0].uid];
+                        _this.getActiveProject(filterdata)
+
+                    } else {
+                        filterdata.SN = "ActiveProject";
+                        filterdata.MN = "GETWHERE";
+                        filterdata.where = "uid=? AND apperiod >=? AND apperiod <=?";
+                        filterdata.allparam = [oModel.oData.UserModel[0].uid, oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                        _this.getActiveProject(filterdata)
+                    }
                 } else if (_this.byId("fid").getSelectedKey() == "DeActive") {
                     _this.getDeactive("GETWHERE", "uid=?", [oModel.oData.UserModel[0].uid]).then(function (res) {
-                        filterdata.MN = "GETWHERE";
-                        filterdata.SN = "Project";
-                        filterdata.allparam = [oModel.oData.UserModel[0].uid];
-                        filterdata.where = "uid=? AND pjid NOT IN (" + res + ")";
-                        _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                        if (res) {
+                            if (_this.byId("yid").getSelectedKey() == "ay") {
+                                filterdata.MN = "GETWHERE";
+                                filterdata.SN = "Project";
+                                filterdata.allparam = [oModel.oData.UserModel[0].uid, new Date().toLocaleDateString().split(".")[2]];
+                                filterdata.where = "p.uid=? AND pjid NOT IN (" + res + ") AND pjperiod=?";
+                                _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                            } else {
+                                filterdata.SN = "Project";
+                                filterdata.MN = "GETWHERE";
+                                filterdata.where = "p.uid=? AND pjid NOT IN (" + res + ") AND pjperiod >=? AND pjperiod <=?";
+                                filterdata.allparam = [oModel.oData.UserModel[0].uid, oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                                _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                            }
+                        }
+                        else {
+                            if (_this.byId("yid").getSelectedKey() == "ay") {
+
+                                filterdata.SN = "Project";
+                                filterdata.MN = "GETWHERE";
+                                filterdata.where = "p.uid=? AND pjperiod=?";
+                                filterdata.allparam = [oModel.oData.UserModel[0].uid, new Date().toLocaleDateString().split(".")[2]];
+                                _this.getProject("Me", filterdata)
+                            } else {
+
+                                filterdata.SN = "Project";
+                                filterdata.MN = "GETWHERE";
+                                filterdata.where = "p.uid=? AND pjperiod >=? AND pjperiod <=?";
+                                filterdata.allparam = [oModel.oData.UserModel[0].uid, oModel.oData.UserModel[0].uid, oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                                _this.getProject("Me", filterdata)
+                            }
+                        }
                     })
                 } else {
-                    filterdata.SN = "Project";
-                    filterdata.MN = "GETWHERE";
-                    filterdata.where = "uid=?";
-                    filterdata.allparam = [oModel.oData.UserModel[0].uid]
-                    _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                    if (_this.byId("yid").getSelectedKey() == "ay") {
+
+                        filterdata.SN = "Project";
+                        filterdata.MN = "GETWHERE";
+                        filterdata.where = "p.uid=? AND pjperiod=?";
+                        filterdata.allparam = [oModel.oData.UserModel[0].uid, new Date().toLocaleDateString().split(".")[2]]
+                        _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                    } else {
+                        filterdata.SN = "Project";
+                        filterdata.MN = "GETWHERE";
+                        filterdata.where = "p.uid=? AND pjperiod >=? AND pjperiod <=?";
+                        filterdata.allparam = [oModel.oData.UserModel[0].uid, oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                        _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                    }
                 }
             }
             else {
-                filterdata.SN = "ActiveProject"
-                filterdata.MN = "GET"
-                _this.getActiveProject(filterdata)
+
+                if (_this.byId("yid").getSelectedKey() == "ay") {
+                    filterdata.SN = "ActiveProject"
+                    filterdata.MN = "GETWHERE"
+                    filterdata.where="apperiod=?"
+                    filterdata.allparam=[new Date().toLocaleDateString().split(".")[2]]
+                    _this.getActiveProject(filterdata)
+
+
+                    // filterdata.SN = "Project";
+                    // filterdata.MN = "GETWHERE";
+                    // filterdata.where = "p.uid=? AND pjperiod=?";
+                    // filterdata.allparam = [oModel.oData.UserModel[0].uid,new Date().toLocaleDateString().split(".")[2]]
+                    // _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                } else {
+                    filterdata.SN = "ActiveProject"
+                    filterdata.MN = "GETWHERE"
+                    filterdata.where="apperiod >=? AND apperiod <=?"
+                    filterdata.allparam=[oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                    _this.getActiveProject(filterdata)
+
+
+                    // filterdata.SN = "Project";
+                    // filterdata.MN = "GETWHERE";
+                    // filterdata.where = "p.uid=? AND apperiod >=? AND apperiod <=?";
+                    // filterdata.allparam = [oModel.oData.UserModel[0].uid, oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                    // _this.getProject(_this.byId("segmented").getSelectedKey(), filterdata)
+                }
+
+                // filterdata.SN = "ActiveProject"
+                // filterdata.MN = "GET"
+                // _this.getActiveProject(filterdata)
             }
         },
         getDeactive: function (mn, where, allparam) {
@@ -152,7 +288,9 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 }
                 ActiveProject.ActiveProjReq(json).then(function (res) {
                     if (res == "None") {
+                        debugger
                         oModel.setProperty("/active", []);
+                        resolve(false);
                     } else if (res == "") {
                         sap.m.MessageToast.show("Sunucuda Hata Gerçekleşti Lütfen Daha Sonra Tekrar Deneyin.")
                     } else {
@@ -309,7 +447,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                             uflag: "",
                             apperiod: new Date().toLocaleDateString().split(".")[2],
                             quotaremaning: oModel.getProperty(spath).pjquota,
-                            apconstqouta: oModel.getProperty(spath).pjquota
+                            apconstqouta: oModel.getProperty(spath).pjquota,
+                            apcreatedper: oModel.getProperty(spath).pjperiod
                         })
                     }
                     ActiveProject.ActiveProjReq({ MN: "GET", SN: "ActiveProject" }).then(function (res) {
@@ -498,6 +637,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                     } else {
                         res.forEach(element => {
                             element.pjquota = element.apconstqouta
+                            element.pjperiod = element.apperiod
+
                         });
                         if (_this.byId("segmented").getSelectedKey() == "Me") {
                             _this.byId("meHeader").setVisible(true);

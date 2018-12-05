@@ -48,6 +48,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
                 where: "sid=?",
                 allparam: [parseInt(oModel.oData.UserModel[0].sid)]
             }
+            debugger
             if (localStorage.getItem("ST") != new Date().toLocaleDateString().split(".")[2]) {
                 sap.m.MessageToast.show("Lütfen Bilgisayarınızın Tarih Ve Saatini Güncelleyiniz.")
             }

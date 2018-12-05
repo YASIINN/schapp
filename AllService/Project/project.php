@@ -37,8 +37,8 @@ class Project extends database
             for ($index = 0; $index < count($allparam); $index++) {
                 array_push($fparam, $allparam[$index]);
             }
-            $allProjectRows = $this->select("projectall",$where,$fparam);
-            // $this->getrows("SELECT  * FROM  projectall  WHERE $where", $fparam);
+            $allProjectRows =  $this->getrows("SELECT  * FROM  projectall p  INNER JoIN user u on p.uid=u.uid  WHERE $where", $fparam);
+            //  $this->select("projectall",$where,$fparam);
             if (count($allProjectRows) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;
@@ -52,6 +52,7 @@ class Project extends database
                         "pjcntn" => $allProjectRows[$i]["pjcntn"],
                         "pjperiod" => $allProjectRows[$i]["pjperiod"],
                         "uid" => $allProjectRows[$i]["uid"],
+                        "ufnm" => $allProjectRows[$i]["ufnm"] . " " . $allProjectRows[$i]["ulnm"],
                         "pjquota" => $allProjectRows[$i]["pjquota"],
                     );
                 }

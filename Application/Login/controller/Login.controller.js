@@ -55,6 +55,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
                 UseronLogin.getUserLayout(base64.objectDecode(localStorage.getItem("UNM")).tid).then(function (res) {
                     oModel.setProperty("/userLayout", res);
                     window.open("#/Dashboard/Home" + "", "_self");
+                    window.location.reload();
                 })
             }
             else {
