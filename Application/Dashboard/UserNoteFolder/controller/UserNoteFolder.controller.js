@@ -14,7 +14,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (e) {
         },
         getFolder: function () {
             CreateComponent.showBusyIndicator();
-            debugger
             FolderService.getFolderReq({ MN: "GET", SN: "UploadPdf", where: "tfperiod=? AND sid=? ", param: [new Date().toLocaleDateString().split(".")[2], oModel.oData.UserModel[0].sid] }).then(function (res) {
                 debugger
                 if (res == "None") {

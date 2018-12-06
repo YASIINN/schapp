@@ -1,0 +1,96 @@
+<mvc:View controllerName="schapp.Application.Dashboard.ProjectOnStudtens.controller.ProjectOnStudtens" 
+	xmlns="sap.ui.table" 
+	xmlns:l="sap.ui.layout" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:u="sap.ui.unified" 
+	xmlns:core="sap.ui.core" 
+	xmlns:m="sap.m" height="100%" class="sapUiSizeCompact">
+	<m:Page id="page" showHeader="false" enableScrolling="false">
+		<m:content>
+			<l:FixFlex>
+				<l:fixContent>
+					<m:VBox>
+						<m:Toolbar height="2rem" class="sapUiTinyMarginBottom">
+							<m:HBox alignItems="Center" justifyContent="Start" class="sapUiTinyMarginTop">
+								<core:Icon src="sap-icon://order-status" color="#325e86" size="18px"></core:Icon>
+								<m:Title class="userInfoPanelTitle" text="Proje Alan Kullanıcılar"/>
+							</m:HBox>
+						</m:Toolbar>	
+						<m:Toolbar id="meHeader" >
+							<m:content>
+								<m:Button text="Onayla" press="AcceptProject" type="Transparent" icon="sap-icon://accept"/>
+								<m:Button text="Reddet" press="AcceptProject" type="Transparent" icon="sap-icon://decline"/>
+								<m:ToolbarSpacer />
+							</m:content>
+						</m:Toolbar>
+					</m:VBox>
+				</l:fixContent>
+				<l:flexContent>
+					<m:VBox>
+						<Table id="idstudent" visibleRowCount="10" visibleRowCountMode="Fixed" selectionMode="MultiToggle" enableColumnReordering='false' ariaLabelledBy="title">
+						
+							<columns >
+								<Column width="9rem">
+									<m:Label text="Proje ID" />
+									<template>
+										<m:Text wrapping="false" text="{pjid}" />
+									</template>
+								</Column>
+								<Column width="9rem" visible="true" id="Meid">
+									<m:Label text="Projeyi Tercih Eden Kullanıcı" />
+									<template>
+										<m:Text wrapping="false" tooltip="{ufnm}" text="{ufnm}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Proje Adı" />
+									<template>
+										<m:Text wrapping="false" tooltip="{pjnm}" text="{pjnm}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Proje İçeriği" />
+									<template>
+										<m:Text wrapping="false" tooltip="{pjcntn}" text="{pjcntn}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Proje Teknolojileri" />
+									<template>
+										<m:Text wrapping="false" tooltip="{pjtechnology}" text="{pjtechnology}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Kullanıcı Not Ortalaması" />
+									<template>
+										<m:Text wrapping="false" text="{avg}" />
+									</template>
+								</Column>
+								<Column width="9rem">
+									<m:Label text="Projeyi Tercih Etme Sırası" />
+									<template>
+										<m:Text wrapping="false" text="{seqnmbr}" />
+									</template>
+								</Column>
+							</columns>
+						</Table>
+						<m:HBox class="footerToolbar" alignItems="Center" justifyContent="Stretch" width="100%">
+							<m:HBox width="40%" alignItems="Center" justifyContent="Start">
+								<m:Text text="Gösterilecek Kayıt Sayısı :"/>
+								<m:Select forceSelection="false" id="rid" width="100%" selectedKey="10" change="changePaginator">
+									<core:Item key="10" text="10" />
+									<core:Item key="25" text="25" />
+									<core:Item key="50" text="50" />
+									<core:Item key="100" text="100" />
+								</m:Select>
+							</m:HBox>
+							<m:HBox width="60%" alignItems="Center" justifyContent="Start" id="footerToolbar">
+
+							</m:HBox>
+						</m:HBox>
+					</m:VBox>
+				</l:flexContent>
+			</l:FixFlex>
+		</m:content>
+	</m:Page>
+</mvc:View>

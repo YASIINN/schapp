@@ -14,6 +14,7 @@ class Point extends database
                     "lid" => $pdata[$i]['lid'],
                     "upnt" => $pdata[$i]['upnt'],
                     'upperiod' => $pdata[$i]['upperiod'],
+                    "pjid"=>$pdata[$i]['pjid']
                 );
                 $addRows = $this->insert('userpoint', $data);
             }

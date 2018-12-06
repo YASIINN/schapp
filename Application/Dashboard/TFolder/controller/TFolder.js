@@ -12,7 +12,6 @@ var TFolder = {
                 var TFolderDialog = new sap.m.Dialog(
                     {
                         stretch: true,
-                        modal: true,
                         stretchOnPhone: true,
                         showCloseButton: true,
                         horizontalScrolling: false,

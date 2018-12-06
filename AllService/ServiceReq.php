@@ -214,6 +214,10 @@ if ($SN == "ActivePonUser") {
         $result = $apu->$MN($_POST['allparam'], $_POST['where']);
     }else if($MN=="GET"){
         $result = $apu->$MN($_POST['where'], $_POST['param']);
+    }else if($MN=="GETMY"){
+        $result = $apu->$MN($_POST['where'], $_POST['param']);
+    }else if($MN=="GETAVARAGE"){
+        $result = $apu->$MN($_POST['udata']);
     }
     echo json_encode($result);
 }

@@ -89,8 +89,6 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             }
             else {
                 CreateComponent.showBusyIndicator();
-                // GETWHERE
-                // field: "lesson",
                 LessonService.lessonReq({ MN: "GET", "SN": "Lesson",  where: "sid=?", allparam: [parseInt(oModel.oData.UserModel[0].sid)] }).then(function (res) {
                     if (res == "None") {
                         CreateComponent.hideBusyIndicator();

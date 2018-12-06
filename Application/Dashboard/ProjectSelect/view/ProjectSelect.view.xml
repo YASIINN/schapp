@@ -83,7 +83,7 @@
 
                     </IconTabFilter>
                     <IconTabSeparator icon=""/>
-                    <IconTabFilter key="point" icon="sap-icon://attachment" iconColor="Neutral" text=" NOT GİR" count="2">
+                    <IconTabFilter key="point" icon="sap-icon://add" iconColor="Neutral" text=" NOT GİR" count="2">
                         <Table inset="false" items="{
                                             path: '/userpoint'
                                         }">
@@ -114,7 +114,7 @@
                         </HBox>
                     </IconTabFilter>
                     <IconTabSeparator icon=""/>
-                    <IconTabFilter key="sort" icon="sap-icon://notes" text="TERCİH SIRASINI BELİRLE" count="3">
+                    <IconTabFilter key="sort" icon="sap-icon://sort" text="TERCİH SIRASINI BELİRLE" count="3">
                         <Text text="Tercih Sıranız Eklediğiniz Sıraya Göre Gerçekleşecektir."/>
 
                         <Table inset="false" items="{
@@ -159,7 +159,7 @@
 
                     </IconTabFilter>
                     <IconTabSeparator icon=""/>
-                    <IconTabFilter key="check" icon="sap-icon://group" text=" KONTROL" iconColor="Negative" count="4">
+                    <IconTabFilter key="check" icon="sap-icon://wrench" text=" KONTROL" iconColor="Negative" count="4">
 
                               <VBox>
                             <Button text="Onayla" icon="sap-icon://accept" press="acceptCheck"/>
@@ -226,7 +226,7 @@
                             </VBox>
                         </IconTabFilter>
                         <IconTabSeparator icon=""/>
-                        <IconTabFilter key="file" icon="sap-icon://group" text=" TRANSKRİPT YÜKLE" iconColor="Negative" count="5">
+                        <IconTabFilter key="file" icon="sap-icon://pdf-attachment" text=" TRANSKRİPT YÜKLE" iconColor="Negative" count="5">
                             <VBox>
                                 <Label text="Sadece Pdf Dosyası Yüklenebilir"/>
                                 <HBox>

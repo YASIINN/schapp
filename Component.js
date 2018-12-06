@@ -172,6 +172,17 @@ sap.ui.define(
                   }
                 },
                 {
+                  pattern: "Dashboard/ProjectOnStudtens",
+                  viewPath: "schapp.Application.Dashboard.ProjectOnStudtens.view",
+                  name: "Dashboard/ProjectOnStudtens",
+                  view: "ProjectOnStudtens",
+                  targetControl: "DashboardRouterId",
+                  transition: "show",
+                  cache: {
+                    keys: [version]
+                  }
+                },
+                {
                   pattern: "Dashboard/SystemSettings",
                   viewPath: "schapp.Application.Dashboard.SystemSettings.view",
                   name: "Dashboard/SystemSettings",

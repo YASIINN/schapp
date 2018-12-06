@@ -243,8 +243,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 if (_this.byId("yid").getSelectedKey() == "ay") {
                     filterdata.SN = "ActiveProject"
                     filterdata.MN = "GETWHERE"
-                    filterdata.where="apperiod=?"
-                    filterdata.allparam=[new Date().toLocaleDateString().split(".")[2]]
+                    filterdata.where = "apperiod=?"
+                    filterdata.allparam = [new Date().toLocaleDateString().split(".")[2]]
                     _this.getActiveProject(filterdata)
 
 
@@ -256,8 +256,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 } else {
                     filterdata.SN = "ActiveProject"
                     filterdata.MN = "GETWHERE"
-                    filterdata.where="apperiod >=? AND apperiod <=?"
-                    filterdata.allparam=[oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
+                    filterdata.where = "apperiod >=? AND apperiod <=?"
+                    filterdata.allparam = [oModel.oData.begdt.split(".")[2], oModel.oData.enddt.split(".")[2]];
                     _this.getActiveProject(filterdata)
 
 
@@ -545,6 +545,16 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                     sap.m.MessageToast.show("İşlem Onaylandı")
                 }
             })
+        },
+        changeDate: function (oEvent) {
+            var _this = this
+            if (oEvent.oSource.getSelectedKey() == "othr") {
+                _this.byId("start").setEnabled(true)
+                _this.byId("end").setEnabled(true)
+            } else {
+                _this.byId("start").setEnabled(false)
+                _this.byId("end").setEnabled(false)
+            }
         },
         changeFilter: function () {
             this.getFilter();

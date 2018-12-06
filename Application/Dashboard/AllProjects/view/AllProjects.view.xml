@@ -39,18 +39,19 @@
 								<core:Item key="othr" text="Diğer" />
 							</m:Select>
 							<m:Text text="Başlangıç Tarih" class="sapUiTinyMarginTop sapUiTinyMarginBegin"/>	
-							<m:DatePicker class="sapUiTinyMarginBegin" id="start" value="{/begdt}" change="datecontrol" />
+							<m:DatePicker enabled="false" class="sapUiTinyMarginBegin" id="start" value="{/begdt}" change="datecontrol" />
 									<m:Text text="Bitiş Tarih" class="sapUiTinyMarginTop sapUiLargeMarginBegin"/>	
-							<m:DatePicker  id="end" class="sapUiTinyMarginBegin" value="{/enddt}"  change="datecontrol"   />
+							<m:DatePicker enabled="false"  id="end" class="sapUiTinyMarginBegin" value="{/enddt}"  change="datecontrol"   />
 						</m:HBox>
 
 						<m:HBox>
 							<m:Text text="Proje Durumu" class="sapUiTinyMarginTop"/>
-							<m:Select forceSelection="false" id="fid" width="100px" selectedKey="All" class="sapUiLargeMarginBegin" change="changeFilter">
+							<m:Select forceSelection="false" id="fid" width="100px" selectedKey="All" class="sapUiLargeMarginBegin">
 								<core:Item key="All" text="Tümü" />
 								<core:Item key="Active" text="Aktif" />
 								<core:Item key="DeActive" text="Pasif" />
 							</m:Select>
+							<m:Button text="Ara" class="sapUiTinyMarginBegin" press="changeFilter"/>
 						</m:HBox>
 						<m:Toolbar id="meHeader" visible="false">
 							<m:content>

@@ -19,31 +19,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             oRouter.getRoute("Dashboard/ProjectSelect").attachPatternMatched(_this.onBeforeShow, _this);
         },
-        // searchTable: function (oEvent) {
-        //     var _this = this
-        //     _this.aFilters = [];
-        //     var sQuery = oEvent.getSource().getValue();;
-        //     if (sQuery && sQuery.length > 2) {
-        //         var pjnm = new Filter("pjnm", sap.ui.model.FilterOperator.Contains, sQuery);
-        //         var pjtechnology = new Filter("pjtechnology", sap.ui.model.FilterOperator.Contains, sQuery);
-        //         var ufnm = new Filter("ufnm", sap.ui.model.FilterOperator.Contains, sQuery);
-        //         var lnm = new Filter("lnm", sap.ui.model.FilterOperator.Contains, sQuery);
-        //         _this.aFilters = [pjnm, pjtechnology, ufnm, lnm]
-        //         var finalFilter = new Filter({
-        //             filters: _this.aFilters,
-        //             and: false
-        //         })
-        //         var filterTable = _this.byId("idactivesproject");
-        //         var binding = filterTable.getBinding("rows");
-        //         binding.filter(finalFilter, "Application");
-        //     } else {
-        //         var _this = this;
-        //         _this.aFilters = [];
-        //         var filterTable = this.byId("idactivesproject");
-        //         var binding = filterTable.getBinding("rows");
-        //         binding.filter(_this.aFilters, "Application");
-        //     }
-        // },
+
         getActiveProject: function () {
             var _this = this
             CreateComponent.showBusyIndicator();
@@ -193,7 +169,12 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                                 upperiod: new Date().toLocaleDateString().split(".")[2]
                             })
                         }
+
+
                         oModel.setProperty("/userpoint", lpntmodel);
+                        debugger
+
+
                         _this.pjdata = []
                         result = true;
                     }
@@ -208,11 +189,6 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
         changekey: function (oEvent) {
             var _this = this
             var tabicon = _this.byId("idIconTabBarSeparatorNoIcon");
-            // if (oEvent.oSource.getSelectedKey() == "project") {
-            //     tabicon.getItems()[2].setEnabled(false);
-            //     tabicon.getItems()[4].setEnabled(false);
-            //     tabicon.getItems()[6].setEnabled(false);
-            // }else if()
             switch (oEvent.oSource.getSelectedKey()) {
                 case "project":
                     delete oModel.oData.userpoint
@@ -241,7 +217,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                     oModel.refresh()
                     tabicon.getItems()[8].setEnabled(false);
                     break;
-                    case "file":
+                case "file":
                     tabicon.getItems()[8].setEnabled(true);
                     oModel.refresh();
                     break;
@@ -314,19 +290,10 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             if (!oModel.oData.fdata) {
                 sap.m.MessageToast.show("Lütfen Pdf Dosyası Yükleyiniz.")
             }
-
-            // else if (_this.projectcheck() == false) {
-            //     /*sap.m.MessageToast.show("Proje Seçim Ekranında Hata")*/
-            // } else if (_this.userpointcheck() == false) {
-            //     /* sap.m.MessageToast.show("Not Girme Ekranında Hata")*/
-            // } else if (_this.chechkSort() == false) {
-
-            // }
             else {
+                oModel.setProperty("/test",oModel.oData.pjdata);
                 delete oModel.oData.pjdata
-                debugger
                 oModel.setProperty("/pjdata", oModel.oData.sorting);
-                debugger
                 _this.uploadPdfFile().then(function (res) {
                     if (res == false) {
                     }
@@ -419,11 +386,56 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
         },
         adduserPoint: function () {
             var _this = this
+            var deneme=[]
+            var pdata=[];
+            for (var i = 0; i < oModel.oData.test.length; i++) {
+                var ls;
+                if (oModel.oData.test[i].lid.includes(",")) {
+                    ls = oModel.oData.test[i].lid.split(",")
+                    for (var z = 0; z < ls.length; z++) {
+                        oModel.oData.userpoint.forEach(function (x, t) {
+                            if (ls[z] == x.lid) {
+                                x.pjid = oModel.oData.test[i].pjid
+                                pdata.push({
+                                    pjid:oModel.oData.test[i].pjid,
+                                    lid: x.lid,
+                                    lnm: x.lnm,
+                                    uid: x.uid,
+                                    upnt: x.upnt,
+                                    upperiod: x.upperiod,
+                                })
+                            }
+                        }
+                        )
+                    }
+                }
+                else {
+                    debugger
+                    oModel.oData.userpoint.forEach(function (x, t) {
+                        if (oModel.oData.test[i].lid == x.lid) {
+                            pdata.push({
+                                pjid:oModel.oData.test[i].pjid,
+                                lid: x.lid,
+                                lnm: x.lnm,
+                                uid: x.uid,
+                                upnt: x.upnt,
+                                upperiod: x.upperiod,
+                            })
+                            // x.pjid = oModel.oData.test[i].pjid
+                            // deneme.push(x)
+                        }
+                    }
+                    )
+                }
+            }
+            // oModel.setProperty("")
+            debugger
+            debugger
             var deferred = new Promise(function (resolve, reject) {
                 PointReq.PointReq({
                     MN: "ADD",
                     SN: "Point",
-                    pdata: oModel.oData.userpoint
+                    pdata: pdata
                 }).then(function (res) {
                     if (res == "None") {
                         CreateComponent.hideBusyIndicator();
@@ -484,7 +496,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                     MN: "ADD",
                     SN: "UploadPdf",
                     "file": _this.b64,
-                    tfperiod:new Date().toLocaleDateString().split(".")[2],
+                    tfperiod: new Date().toLocaleDateString().split(".")[2],
                     tfuid: oModel.oData.UserModel[0].uid,
                     tfname: oModel.oData.UserModel[0].unm,
                     tfsize: _this.size,
@@ -550,28 +562,6 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             })
             return deferred;
         },
-        // onAfterRendering: function () {
-        //     var _this = this
-        //     var oPage = this.getView().byId("wizardContentPage");
-        //     debugger
-        //     $("#"+oPage.sId+" section").scroll(function(oEvent) {
-        //         debugger
-        //         var wstep=_this.byId("wizardd");
-
-        //         console.log( wstep.getCurrentStep());
-        //         // for (let index = 0; index < wstep.getSteps().length; index++) {
-        //         //     const element = array[index];
-
-        //         // }
-        //         // wstep.getSteps()[0].sId
-        //         debugger
-
-        //     });
-
-        //     //    oPage.attachBrowserEvent("window.scroll", function(oEvent) {
-        //     //            console.log("onscoll");
-        //     //           });	
-        // },
         onBeforeShow: function (argument) {
             var _this = this;
             var tabicon = _this.byId("idIconTabBarSeparatorNoIcon");
@@ -581,18 +571,10 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             tabicon.getItems()[8].setEnabled(false);
             UseronLogin.onLogin().then(function (res) {
                 if (oModel.oData.UserModel[0].quotaremain == "0") {
-                    // var wizard = _this.byId("wizardd");
-                    // wizard.setCurrentStep("__xmlview1--ProjectStep")
-                    // _this._wizard.invalidateStep(_this.byId("ProjectStep"));
                     _this.byId("idactivesproject").setMode(sap.m.ListMode.None);
                     _this.byId("savedata").setVisible(false)
                 }
                 else {
-                    // var wizard = _this.byId("wizardd");
-                    // wizard.setCurrentStep("__xmlview1--ProjectStep")
-                    // _this._wizard.invalidateStep(_this.byId("ProjectStep"));
-                    // _this.byId("idactivesproject").setMode(sap.m.ListMode.MultiSelect);
-                    // _this.byId("savedata").setVisible(true)
                 }
                 _this.getActiveProject();
             })
