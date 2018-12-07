@@ -172,7 +172,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
 
 
                         oModel.setProperty("/userpoint", lpntmodel);
-                        debugger
+
 
 
                         _this.pjdata = []
@@ -291,7 +291,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 sap.m.MessageToast.show("Lütfen Pdf Dosyası Yükleyiniz.")
             }
             else {
-                oModel.setProperty("/test",oModel.oData.pjdata);
+                oModel.setProperty("/udata", oModel.oData.pjdata);
+
                 delete oModel.oData.pjdata
                 oModel.setProperty("/pjdata", oModel.oData.sorting);
                 _this.uploadPdfFile().then(function (res) {
@@ -330,7 +331,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             file.addfile({
                 MN: "DEL",
                 SN: "UploadPdf",
-                where: "uid IN" + "(" + oModel.oData.UserModel[0].uid + ")",
+                where: "uid =?",
+                param: oModel.oData.UserModel[0].uid
             }).then(function (res) { })
         },
         delPoint: function () {
@@ -386,18 +388,17 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
         },
         adduserPoint: function () {
             var _this = this
-            var deneme=[]
-            var pdata=[];
-            for (var i = 0; i < oModel.oData.test.length; i++) {
+            var pdata = [];
+            for (var i = 0; i < oModel.oData.udata.length; i++) {
                 var ls;
-                if (oModel.oData.test[i].lid.includes(",")) {
-                    ls = oModel.oData.test[i].lid.split(",")
+                if (oModel.oData.udata[i].lid.includes(",")) {
+                    ls = oModel.oData.udata[i].lid.split(",")
                     for (var z = 0; z < ls.length; z++) {
                         oModel.oData.userpoint.forEach(function (x, t) {
                             if (ls[z] == x.lid) {
-                                x.pjid = oModel.oData.test[i].pjid
+                                x.pjid = oModel.oData.udata[i].pjid
                                 pdata.push({
-                                    pjid:oModel.oData.test[i].pjid,
+                                    pjid: oModel.oData.udata[i].pjid,
                                     lid: x.lid,
                                     lnm: x.lnm,
                                     uid: x.uid,
@@ -410,27 +411,21 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                     }
                 }
                 else {
-                    debugger
                     oModel.oData.userpoint.forEach(function (x, t) {
-                        if (oModel.oData.test[i].lid == x.lid) {
+                        if (oModel.oData.udata[i].lid == x.lid) {
                             pdata.push({
-                                pjid:oModel.oData.test[i].pjid,
+                                pjid: oModel.oData.udata[i].pjid,
                                 lid: x.lid,
                                 lnm: x.lnm,
                                 uid: x.uid,
                                 upnt: x.upnt,
                                 upperiod: x.upperiod,
                             })
-                            // x.pjid = oModel.oData.test[i].pjid
-                            // deneme.push(x)
                         }
                     }
                     )
                 }
             }
-            // oModel.setProperty("")
-            debugger
-            debugger
             var deferred = new Promise(function (resolve, reject) {
                 PointReq.PointReq({
                     MN: "ADD",

@@ -8,7 +8,7 @@ class SystemSettings extends database
     function GETSYS()
     {
         if (isset($_SESSION["UNM"])) {
-            $sysrows = $this->select("systemsettings","1",array());
+            $sysrows = $this->select("systemsettings", "1", array());
             if (count($sysrows) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;
@@ -43,5 +43,15 @@ class SystemSettings extends database
             }
         }
     }
+    public function GUPER()
+    {
+        if (date("m") == "08") {
+            $this->result = array("status" => true);
+        } else {
+            $this->result = array("status" => false);
+        }
+        return $this->result;
+    }
+
 }
 ?>

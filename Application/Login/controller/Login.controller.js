@@ -30,6 +30,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
                     MN: "LG",
                     SN: "Login"
                 }
+                debugger
                 UseronLogin.onLoginControl(data).then(function (res) {
                     if (res == true) {
                         _this.onGoHome();

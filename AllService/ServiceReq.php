@@ -202,6 +202,8 @@ if ($SN == "SystemSettings") {
         $result = $settings->$MN($_POST['param']);
     } else if ($MN == "GETSYS") {
         $result = $settings->$MN();
+    } else if ($MN == "GUPER") {
+        $result = $settings->$MN();
     }
     echo json_encode($result);
 }
@@ -212,11 +214,11 @@ if ($SN == "ActivePonUser") {
         $result = $apu->$MN($_POST['apudata']);
     } else if ($MN == "DEL") {
         $result = $apu->$MN($_POST['allparam'], $_POST['where']);
-    }else if($MN=="GET"){
+    } else if ($MN == "GET") {
         $result = $apu->$MN($_POST['where'], $_POST['param']);
-    }else if($MN=="GETMY"){
+    } else if ($MN == "GETMY") {
         $result = $apu->$MN($_POST['where'], $_POST['param']);
-    }else if($MN=="GETAVARAGE"){
+    } else if ($MN == "GETAVARAGE") {
         $result = $apu->$MN($_POST['udata']);
     }
     echo json_encode($result);
@@ -235,7 +237,7 @@ if ($SN == "UploadPdf") {
     include("/UploadPdf/uploadpdf.php");
     $file = new $SN();
     if ($MN == "ADD") {
-        $result = $file->$MN($_POST['file'], $_POST['tfuid'], $_POST['tfname'], $_POST['tfsize'], $_POST['tftype'],$_POST['tfperiod']);
+        $result = $file->$MN($_POST['file'], $_POST['tfuid'], $_POST['tfname'], $_POST['tfsize'], $_POST['tftype'], $_POST['tfperiod']);
     } else if ($MN == "DEL") {
         $issetparam = "";
         if (isset($_POST['param'])) {
@@ -244,10 +246,10 @@ if ($SN == "UploadPdf") {
             $issetparam = "";
         }
         $result = $file->$MN($_POST['where'], $issetparam);
-    }else if($MN=="GET"){
-        $result = $file->$MN($_POST['where'],$_POST['param']);
-    }else if($MN=="GETF"){
-        $result = $file->$MN($_POST['where'],$_POST['param']);
+    } else if ($MN == "GET") {
+        $result = $file->$MN($_POST['where'], $_POST['param']);
+    } else if ($MN == "GETF") {
+        $result = $file->$MN($_POST['where'], $_POST['param']);
     }
     echo json_encode($result);
 }

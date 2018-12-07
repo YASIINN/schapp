@@ -96,7 +96,6 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                                 param += "'" + rdata[index].rid + "'" + ","
                             }
                         }
-                        debugger
                         RegisterService.RegisterReq({
                             MN: "DEL",
                             SN: "Register",

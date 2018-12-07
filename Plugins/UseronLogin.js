@@ -7,6 +7,7 @@ var UseronLogin = {
             var ls = localStorage.getItem("UNM")
             if (st && ls) {
                 if (st == ls) {
+                    debugger
                     UseronLogin.onUserControl(base64.objectDecode(localStorage.getItem("UNM"))).then(function (res) {
                         if (res == false) {
                             UseronLogin.outLogin()

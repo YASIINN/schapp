@@ -167,7 +167,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (e) {
             }
             else {
                 CreateComponent.showBusyIndicator();
-                MailService.AddMail({ "systemcheck": [], "maildata": [{ "mail": oModel.oData.SysSettings[0].emailaddres, "messega": "Email Doğrulama", "epass": oModel.oData.SysSettings[0].emailpass,"subject":"KİMLİĞİNİZİ DOĞRULAMAK İÇİN BU MESAJ GÖNDERİLMİŞTİR." }] }).then(function (res) {
+                MailService.AddMail({ "systemcheck": [], "maildata": [{ "mail": oModel.oData.SysSettings[0].emailaddres, "messega": "Email Doğrulama", "epass": oModel.oData.SysSettings[0].emailpass, "subject": "KİMLİĞİNİZİ DOĞRULAMAK İÇİN BU MESAJ GÖNDERİLMİŞTİR." }] }).then(function (res) {
                     if (res == "None" || res == "") {
                         CreateComponent.hideBusyIndicator();
                         sap.m.MessageToast.show("Email Adresiniz Veya Parolanız Yanlış");
@@ -231,10 +231,27 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (e) {
                 })
             }
         },
+        getuper: function () {
+            var _this = this
+            SystemService.getSystemSetting({ MN: "GUPER", SN: "SystemSettings" }).then(function (res) {
+                if (res == false) {
+                    _this.byId("quotaid").setEnabled(false);
+                    _this.byId("educatorid").setEnabled(false);
+                } else if (res == true) {
+                    _this.byId("quotaid").setEnabled(true);
+                    _this.byId("educatorid").setEnabled(true);
+
+                } else {
+                    _this.byId("quotaid").setEnabled(false);
+                    _this.byId("educatorid").setEnabled(false);
+                }
+            })
+        },
         onBeforeShow: function () {
             var _this = this
             UseronLogin.onLogin().then(function (e) {
                 _this.getSystemSettings();
+                _this.getuper();
                 if (localStorage.getItem("ST") != new Date().toLocaleDateString().split(".")[2]) {
                     sap.m.MessageToast.show("Lütfen Bilgisayarınızın Tarih Ve Saatini Güncelleyiniz.")
                 }

@@ -27,9 +27,16 @@ class UploadPdf extends database
             }
         }
     }
-    public function DEL()
+    public function DEL($where, $param)
     {
-
+        $delete =$this->delete("trnskriptfolder",$where,array($param));
+        if ($delete) {
+            $this->result = array("status" => "SuccesDel");
+            return $this->result;
+        } else {
+            $this->result = array("status" => "None");
+            return $this->result;
+        }
     }
     public function GET($where, $param)
     {

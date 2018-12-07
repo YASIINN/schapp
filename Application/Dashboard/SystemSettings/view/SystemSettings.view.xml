@@ -14,7 +14,11 @@
                             <Title text="Sistem Ayarları"/>
                         </HBox>
                     </Toolbar>
+                    <HBox alignItems="Start" justifyContent="Stretch">
+                    <Text text="Proje Kontenjanı ve Seçilecek Minimum Hoca Hakkı Alanları Sadece Diğer Dönem Başlangıcında Değiştirilebilir"/>
+                    </HBox>
                     <VBox width="100%" alignItems="End" justifyContent="Stretch">
+                    
                         <Button text="Düzenle" press="setEnb" type="Emphasized"/>
                     </VBox>
                     <VBox alignItems="Stretch" justifyContent="Start" width="100%">
@@ -37,7 +41,7 @@
                             <Label width="130px" text="Proje Kontenjan "/>
                             <Label text=":" width="10px" />
                             <VBox width="100%" alignItems="Stretch" justifyContent="Stretch">
-                                <Input enabled="{/enb}" width="100%" value="{/SysSettings/0/pjscontenjan}"/>
+                                <Input id="quotaid" enabled="false" width="100%" value="{/SysSettings/0/pjscontenjan}"/>
                             </VBox>
                         </HBox>
                         <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">
@@ -51,7 +55,7 @@
                             <Label width="130px" wrapping="true" text="Seçilecek Minimum Hoca Sayısı"/>
                             <Label text=":" width="10px" />
                             <VBox width="100%" alignItems="Stretch" justifyContent="Stretch">
-                                <Input enabled="{/enb}" width="100%" value="{/SysSettings/0/quotaoneducator}"/>
+                                <Input id="educatorid" enabled="false" width="100%" value="{/SysSettings/0/quotaoneducator}"/>
                             </VBox>
                         </HBox>
                         <VBox width="100%" alignItems="End" justifyContent="Stretch">

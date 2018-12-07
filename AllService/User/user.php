@@ -39,6 +39,11 @@ class User extends database
                 }
                 return $this->result;
             }
+        }else{
+            $this->result = array("status" => "None");
+            session_unset(); 
+            session_destroy(); 
+            return $this->result;
         }
     }
     public function ADD($userdata)
@@ -106,6 +111,11 @@ class User extends database
                 $this->result = array("status" => "None");
                 return $this->result;
             }
+        }else{
+            $this->result = array("status" => "None");
+            session_unset(); 
+            session_destroy(); 
+            return $this->result;
         }
     }
     public function GAUW($uwhere, $uparam, $mwhere, $mparam, $pwhere, $pparam)
@@ -134,65 +144,13 @@ class User extends database
                 }
             }
         }
-    }
-    /*
-    public function ADDRU($userdata)
-    {
-        if (isset($_SESSION["UNM"])) {
-            for ($i = 0; $i < count($userdata); $i++) {
-                $ufnm = $userdata[$i]['ufnm'];
-                $ulnm = $userdata[$i]['ulnm'];
-                $upnt = $userdata[$i]['upnt'];
-                $usno = $userdata[$i]['usno'];
-                $unm = $userdata[$i]['unm'];
-                $tid = $userdata[$i]['tid'];
-                $upass = $userdata[$i]['upass'];
-                $email = $userdata[$i]['email'];
-                $uauthr = $userdata[$i]['uauthr'];
-                $utel = $userdata[$i]['utel'];
-                $sid = $userdata[$i]['sid'];
-                $quotaremain = $userdata[$i]['quotaremain'];
-                $addsectiononLessonRows = $this->insert('useronsection', $data);
-                if ($addRows) {
-                    $userRows = $this->getrows("SELECT  * FROM user  where unm=?", array($unm));
-                    $uid = $userRows[0]['uid'];
-                    $addpassRows = $this->ekle("INSERT INTO pass 
-                (pass,uid) values('$upass',' $uid')");
-                    if ($addpassRows) {
-                        $addmailRows = $this->ekle("INSERT INTO mail 
-                    (mail,uid) values('$email',' $uid')");
-                        if ($addmailRows) {
-                            $addphoneRows = $this->ekle("INSERT INTO phone 
-                        (pnmbr,uid) values('$utel',' $uid')");
-                            if ($addphoneRows) {
-                                $addsectiononLessonRows = $this->ekle("INSERT INTO useronsection (uid,sid) values
-                                ('$uid','$sid')");
-                                if ($addsectiononLessonRows) {
-                                    $this->result = array("status" => "SuccesAdd");
-                                } else {
-                                    $this->result = array("status" => "None");
-                                    return $this->result;
-                                }
-                            } else {
-                                $this->result = array("status" => "None");
-                                return $this->result;
-                            }
-                        } else {
-                            $this->result = array("status" => "None");
-                            return $this->result;
-                        }
-                    } else {
-                        $this->result = array("status" => "None");
-                        return $this->result;
-                    }
-                } else {
-                    $this->result = array("status" => "None");
-                    return $this->result;
-                }
-            }
+        else{
+            $this->result = array("status" => "None");
+            session_unset(); 
+            session_destroy(); 
+            return $this->result;
         }
-        return $this->result;
-    }*/
+    }
     public function GETPU($pass)
     {
         if (isset($_SESSION["UNM"])) {
