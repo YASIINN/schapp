@@ -37,7 +37,6 @@ class Register extends database
             array_push($fparam, $param[$index]);
         }
         $getRegisterRows = $this->select("registertemp",$where,$fparam);
-        // $this->getrows("SELECT  * FROM registertemp WHERE $where", $fparam);
         if (count($getRegisterRows) == 0) {
             $this->result = array("status" => "None");
             return $this->result;
