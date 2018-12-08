@@ -48,7 +48,7 @@
                             <Label width="130px" text="Duyurular "/>
                             <Label text=":" width="10px" />
                             <VBox width="100%" alignItems="Stretch" justifyContent="Stretch">
-                                <TextArea enabled="{/enb}" growing="true" width="100%" value="{/SysSettings/0/notice}"/>
+                                <TextArea enabled="{/enb}" growing="false" height="300px" width="100%" value="{/SysSettings/0/notice}"/>
                             </VBox>
                         </HBox>
                         <HBox alignItems="Center" justifyContent="Stretch" width="100%" class="sapUiTinyMarginTop">

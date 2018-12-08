@@ -1,3 +1,4 @@
+jQuery.sap.require("schapp.Application.Dashboard.SystemSettings.SystemSettingsServicejs.SystemSettings");
 sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap/m/Dialog', 'sap/m/MessageToast', 'sap/m/Button', 'sap/m/Text', 'sap/m/GroupHeaderListItem', 'sap/viz/ui5/core/BaseChart'], function (Controller, JSONModel, Dialog, MessageToast, Button, Text, GroupHeaderListItem, BaseChart) {
     "use strict";
     var myControl = Controller.extend("schapp.Application.Login.controller.Login", {
@@ -9,6 +10,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
                 pass: ""
             }
             oModel.setProperty("/UserModel", UserModel);
+            _this.getSys();
             Servertime.getY().then(function (res) {
                 if (res != new Date().toLocaleDateString().split(".")[2]) {
                     sap.m.MessageToast.show("Lütfen Bilgisayarınızın Tarih Ve Saatini Güncelleyiniz.")
@@ -30,13 +32,23 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
                     MN: "LG",
                     SN: "Login"
                 }
-                debugger
                 UseronLogin.onLoginControl(data).then(function (res) {
                     if (res == true) {
                         _this.onGoHome();
                     }
                 })
             }
+        },
+        getSys: function () {
+            SystemService.getSystemSetting({ MN: "GETSYS", SN: "SystemSettings" }).then(function (res) {
+                if (res == "None") {
+                    oModel.setProperty("/announcements", [])
+                } else if (res == "") {
+                    sap.m.MessageToast.show("Beklenmeyen Hata Lütfen Daha Sonra Tekrar Deneyiniz")
+                } else {
+                    oModel.setProperty("/announcements", res)
+                }
+            })
         },
         checkValidate: function () {
             var result = [false, ""]

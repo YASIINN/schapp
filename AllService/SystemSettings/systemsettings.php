@@ -7,7 +7,6 @@ class SystemSettings extends database
     public $result = array();
     function GETSYS()
     {
-        if (isset($_SESSION["UNM"])) {
             $sysrows = $this->select("systemsettings", "1", array());
             if (count($sysrows) == 0) {
                 $this->result = array("status" => "None");
@@ -18,7 +17,6 @@ class SystemSettings extends database
                 }
                 return $this->result;
             }
-        }
     }
     function SETSYS($param)
     {
