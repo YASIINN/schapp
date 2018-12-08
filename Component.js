@@ -183,6 +183,17 @@ sap.ui.define(
                   }
                 },
                 {
+                  pattern: "Dashboard/SectionAnnouncements",
+                  viewPath: "schapp.Application.Dashboard.SectionAnnouncements.view",
+                  name: "Dashboard/SectionAnnouncements",
+                  view: "SectionAnnouncements",
+                  targetControl: "DashboardRouterId",
+                  transition: "show",
+                  cache: {
+                    keys: [version]
+                  }
+                },
+                {
                   pattern: "Dashboard/SystemSettings",
                   viewPath: "schapp.Application.Dashboard.SystemSettings.view",
                   name: "Dashboard/SystemSettings",

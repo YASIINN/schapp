@@ -10,7 +10,6 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
                 pass: ""
             }
             oModel.setProperty("/UserModel", UserModel);
-            _this.getSys();
             Servertime.getY().then(function (res) {
                 if (res != new Date().toLocaleDateString().split(".")[2]) {
                     sap.m.MessageToast.show("Lütfen Bilgisayarınızın Tarih Ve Saatini Güncelleyiniz.")
@@ -38,17 +37,6 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
                     }
                 })
             }
-        },
-        getSys: function () {
-            SystemService.getSystemSetting({ MN: "GETSYS", SN: "SystemSettings" }).then(function (res) {
-                if (res == "None") {
-                    oModel.setProperty("/announcements", [])
-                } else if (res == "") {
-                    sap.m.MessageToast.show("Beklenmeyen Hata Lütfen Daha Sonra Tekrar Deneyiniz")
-                } else {
-                    oModel.setProperty("/announcements", res)
-                }
-            })
         },
         checkValidate: function () {
             var result = [false, ""]

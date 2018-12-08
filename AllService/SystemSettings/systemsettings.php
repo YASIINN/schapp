@@ -5,9 +5,9 @@ header("Content-Type: application/json; charset=UTF-8");
 class SystemSettings extends database
 {
     public $result = array();
-    function GETSYS()
+    function GETSYS($where,$param)
     {
-            $sysrows = $this->select("systemsettings", "1", array());
+            $sysrows = $this->select("systemsettings", $where, array($param));
             if (count($sysrows) == 0) {
                 $this->result = array("status" => "None");
                 return $this->result;
@@ -18,7 +18,7 @@ class SystemSettings extends database
                 return $this->result;
             }
     }
-    function SETSYS($param)
+    function SETSYS($param,$where)
     {
         if (isset($_SESSION["UNM"])) {
             for ($index = 0; $index < count($param); $index++) {
@@ -30,7 +30,7 @@ class SystemSettings extends database
                     "notice" => $param[$index]['notice'],
                     "quotaoneducator" => $param[$index]['quotaoneducator']
                 );
-                $updatesys = $this->update("systemsettings", $data, "ssid=?", array(1));
+                $updatesys = $this->update("systemsettings", $data, "sid=?", array($where));
             }
             if ($updatesys) {
                 $this->result = array("status" => "SuccedUpdate");

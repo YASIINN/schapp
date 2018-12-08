@@ -182,10 +182,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (e) {
             }
         },
         setSys: function () {
-            debugger
             CreateComponent.showBusyIndicator();
             SystemService.getSystemSetting({
                 MN: "SETSYS", SN: "SystemSettings",
+                where: oModel.oData.UserModel[0].sid,
                 param: [{
                     pjscontenjan: oModel.oData.SysSettings[0].pjscontenjan,
                     emailaddres: oModel.oData.SysSettings[0].emailaddres,
@@ -219,7 +219,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (e) {
                 sap.m.MessageToast.show("Lütfen Bilgisayarınızın Tarih Ve Saatini Güncelleyiniz.")
             }
             else {
-                SystemService.getSystemSetting({ MN: "GETSYS", SN: "SystemSettings" }).then(function (res) {
+                SystemService.getSystemSetting({ MN: "GETSYS", SN: "SystemSettings", where: "sid=?", param: oModel.oData.UserModel[0].sid }).then(function (res) {
                     if (res == "None") {
                         oModel.setProperty("/SysSettings", [])
                     } else if (res == "") {

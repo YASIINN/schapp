@@ -20,9 +20,9 @@ class Login extends database
                 return $this->result;
             } else {
                 for ($i = 0; $i < count($userRows); $i++) {
-                    session_start();
                     $this->result[] = array("status" => "Okey", "uid" => $userRows[$i]['uid'], "ufnm" => $userRows[$i]['ufnm'], "ulnm" => $userRows[$i]["ulnm"], "unm" => $userRows[$i]["unm"], "upnt" => $userRows[$i]["upnt"], "usno" => $userRows[$i]["usno"], "tid" => $userRows[$i]["tid"], "uauthr" => $userRows[$i]["uauthr"], "tnm" => $userRows[$i]["tnm"], "autnm" => $userRows[$i]["autnm"], "userLT" => time(), );
                 }
+                session_start();
                 $_SESSION["UNM"] = $this->result;
                 return $this->result;
             }

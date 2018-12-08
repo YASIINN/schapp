@@ -35,7 +35,7 @@ class User extends database
                 return $this->result;
             } else {
                 for ($i = 0; $i < count($userRows); $i++) {
-                    $this->result[] = array("Status" => "Okey", "uid" => $userRows[$i]['uid'], "ufnm" => $userRows[$i]['ufnm'], "ulnm" => $userRows[$i]["ulnm"], "unm" => $userRows[$i]["unm"], "upnt" => $userRows[$i]["upnt"], "usno" => $userRows[$i]["usno"], "tid" => $userRows[$i]["tid"], "uauthr" => $userRows[$i]["uauthr"], "tnm" => $userRows[$i]["tnm"], "autnm" => $userRows[$i]["autnm"], "uLD" => $uLT, "sid" => $userRows[$i]["sid"], "sname" => $userRows[$i]["sname"], "quotaremain" => $userRows[$i]["quotaremain"], 'pass' => $userRows[$i]["pass"]);
+                    $this->result[] = array("Status" => "Okey", "uid" => $userRows[$i]['uid'], "ufnm" => $userRows[$i]['ufnm'], "ulnm" => $userRows[$i]["ulnm"], "unm" => $userRows[$i]["unm"], "upnt" => $userRows[$i]["upnt"], "usno" => $userRows[$i]["usno"], "tid" => $userRows[$i]["tid"], "uauthr" => $userRows[$i]["uauthr"], "tnm" => $userRows[$i]["tnm"], "autnm" => $userRows[$i]["autnm"], "uLD" => $uLT, "sid" => $userRows[$i]["sid"], "sname" => $userRows[$i]["sname"], "quotaremain" => $userRows[$i]["quotaremain"], 'pass' => $userRows[$i]["pass"],"ustatus"=>$userRows[$i]['ustatus']);
                 }
                 return $this->result;
             }
@@ -162,7 +162,7 @@ class User extends database
                 return $this->result;
             } else {
                 for ($i = 0; $i < count($upassrows); $i++) {
-                    $this->result[] = array("Status" => "Okey", "uid" => $upassrows[$i]['uid'], "ufnm" => $upassrows[$i]['ufnm'], "ulnm" => $upassrows[$i]["ulnm"], "unm" => $upassrows[$i]["unm"], "upnt" => $upassrows[$i]["upnt"], "usno" => $upassrows[$i]["usno"], "tid" => $upassrows[$i]["tid"], "uauthr" => $upassrows[$i]["uauthr"]);
+                    $this->result[] = array("Status" => "Okey", "uid" => $upassrows[$i]['uid'], "ufnm" => $upassrows[$i]['ufnm'], "ulnm" => $upassrows[$i]["ulnm"], "unm" => $upassrows[$i]["unm"], "upnt" => $upassrows[$i]["upnt"], "usno" => $upassrows[$i]["usno"], "tid" => $upassrows[$i]["tid"], "uauthr" => $upassrows[$i]["uauthr"],"ustatus"=>$upassrows[$i]['ustatus']);
                 }
                 return $this->result;
             }

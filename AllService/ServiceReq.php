@@ -199,9 +199,9 @@ if ($SN == "SystemSettings") {
     include("/SystemSettings/systemsettings.php");
     $settings = new $SN();
     if ($MN == "SETSYS") {
-        $result = $settings->$MN($_POST['param']);
+        $result = $settings->$MN($_POST['param'],$_POST['where']);
     } else if ($MN == "GETSYS") {
-        $result = $settings->$MN();
+        $result = $settings->$MN($_POST['where'], $_POST['param']);
     } else if ($MN == "GUPER") {
         $result = $settings->$MN();
     }
