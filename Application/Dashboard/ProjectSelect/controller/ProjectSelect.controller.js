@@ -565,6 +565,15 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             tabicon.getItems()[6].setEnabled(false);
             tabicon.getItems()[8].setEnabled(false);
             UseronLogin.onLogin().then(function (res) {
+                SystemService.getSystemSetting({ MN: "GETSYS", SN: "SystemSettings", where: "sid=?", param: oModel.oData.UserModel[0].sid }).then(function (res) {
+                    if (res == "None") {
+                        oModel.setProperty("/SysSetProjSelect", [])
+                    } else if (res == "") {
+                        sap.m.MessageToast.show("Beklenmeyen Hata Lütfen Daha Sonra Tekrar Deneyiniz")
+                    } else {
+                        oModel.setProperty("/SysSetProjSelect", res)
+                    }
+                })
                 if (oModel.oData.UserModel[0].quotaremain == "0") {
                     _this.byId("idactivesproject").setMode(sap.m.ListMode.None);
                     _this.byId("savedata").setVisible(false)
@@ -573,15 +582,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 }
                 _this.getActiveProject();
             })
-            SystemService.getSystemSetting({ MN: "GETSYS", SN: "SystemSettings" }).then(function (res) {
-                if (res == "None") {
-                    oModel.setProperty("/SysSetProjSelect", [])
-                } else if (res == "") {
-                    sap.m.MessageToast.show("Beklenmeyen Hata Lütfen Daha Sonra Tekrar Deneyiniz")
-                } else {
-                    oModel.setProperty("/SysSetProjSelect", res)
-                }
-            })
+          
         },
     });
 });

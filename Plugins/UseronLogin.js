@@ -56,7 +56,7 @@ var UseronLogin = {
                         element.fullname = element.ufnm + " " + element.ulnm;
                     });
                     oModel.setProperty("/UserModel", res);
-                    localStorage.setItem("UNM",base64.objectEncode(res));
+                    localStorage.setItem("UNM", base64.objectEncode(res));
                     sessionStorage.setItem("UNM", base64.objectEncode(res))
                     resolve(true);
                 }
@@ -79,7 +79,7 @@ var UseronLogin = {
         return deferred;
     },
     outLogin: function () {
-        SessionService.getSession({ SN: "Session", MN: "DELS" }).then(function(res){
+        SessionService.getSession({ SN: "Session", MN: "DELS" }).then(function (res) {
         })
         CreateComponent.hideBusyIndicator();
         localStorage.clear();
@@ -108,17 +108,22 @@ var UseronLogin = {
                 if (res == "None") {
                     sap.m.MessageToast.show("Kullanıcı Adı Veya Şifre Yanlış");
                 } else {
-                    res.forEach(element => {
-                        element.fullname = element.ufnm + " " + element.ulnm;
-                    });
-                    oModel.setProperty("/UserModel", res);
-                    localStorage.setItem("UNM", base64.objectEncode(res));
-                    sessionStorage.setItem("UNM", base64.objectEncode(res));
-            resolve(true);
-        }
+                    if (res[0].ustatus == "M") {
+                        sap.m.MessageToast.show("Mezun Öğrenciler Sisteme Giremez");
+                        resolve(false)
+                    } else {
+                        res.forEach(element => {
+                            element.fullname = element.ufnm + " " + element.ulnm;
+                        });
+                        oModel.setProperty("/UserModel", res);
+                        localStorage.setItem("UNM", base64.objectEncode(res));
+                        sessionStorage.setItem("UNM", base64.objectEncode(res));
+                        resolve(true);
+                    }
+                }
                 resolve(false)
             })
-})
-return deferred;
+        })
+        return deferred;
     }
 }

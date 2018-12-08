@@ -161,7 +161,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
         onBeforeShow: function (argument) {
             var _this = this;
             UseronLogin.onLogin().then(function (res) {
-                SystemService.getSystemSetting({ MN: "GETSYS", SN: "SystemSettings" }).then(function (res) {
+                SystemService.getSystemSetting({ MN: "GETSYS", SN: "SystemSettings", where: "sid=?", param: oModel.oData.UserModel[0].sid }).then(function (res) {
                     if (res == "None") {
                         oModel.setProperty("/SysSettings", [])
                     } else if (res == "") {
