@@ -529,13 +529,16 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
         changefile: function (oEvent) {
             debugger
             var _this = this
-            _this.cvb64(oEvent.getParameter("files")[0]).then(function (res) {
-                if (res) {
-                    oModel.setProperty("/fdata", _this.b64);
-                    // oModel.setProperty("/fdata", oEvent.getParameter("files")[0]);
-                }
-            })
-
+            if (oEvent.getParameter("files")[0].size != 1000000) {
+                _this.cvb64(oEvent.getParameter("files")[0]).then(function (res) {
+                    if (res) {
+                        oModel.setProperty("/fdata", _this.b64);
+                        /* oModel.setProperty("/fdata", oEvent.getParameter("files")[0]);*/
+                    }
+                })
+            } else {
+                sap.m.MessageToast.show("Dosya Boyutu Geçersiz")
+            }
         },
         setActiveProjectQuota: function () {
             oModel.oData.pjdata.forEach(function (x) {
@@ -582,7 +585,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 }
                 _this.getActiveProject();
             })
-          
+
         },
     });
 });
