@@ -87,6 +87,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 _this.byId("pb").setVisible(false)
                 _this.byId("pd").setVisible(false)
                 _this.byId("dateid").setVisible(true);
+                _this.byId("pjpos").setVisible(true)
+                _this.byId("pjsearch").setVisible(true)
                 _this.byId("fid").setSelectedKey("All")
             } else if (_this.byId("segmented").getSelectedKey() == "Me") {
                 _this.byId("pl").setVisible(true)
@@ -94,6 +96,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 _this.byId("pd").setVisible(true)
                 _this.byId("apper").setVisible(false);
                 _this.byId("dateid").setVisible(true);
+                _this.byId("pjpos").setVisible(true)
+                _this.byId("pjsearch").setVisible(true)
                 _this.byId("fid").setSelectedKey("All")
             } else {
                 _this.byId("dateid").setVisible(false);
@@ -101,6 +105,8 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                 _this.byId("apper").setVisible(true);
                 _this.byId("fid").setVisible(false)
                 _this.byId("fid").setSelectedKey("All")
+                _this.byId("pjpos").setVisible(false)
+                _this.byId("pjsearch").setVisible(false)
                 /*
                  _this.byId("pb").setVisible(false)
                  _this.byId("pd").setVisible(false)*/
@@ -368,28 +374,28 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
             }
 
         },
-        onExport: function () {
-            var aCols, aProducts, oSettings;
-            aCols = this.ColumnConfig();
-            var _this = this
-            aProducts = this.getView().getModel().getProperty("/allProject");
-            var fileName = "";
-            if (_this.byId("segmented").getSelectedKey() == "All") {
-                fileName = "Tüm Projeler"
-            } else {
-                fileName = "Benim Projelerim"
-            }
-            oSettings = {
-                workbook: { columns: aCols },
-                dataSource: aProducts,
-                fileName: fileName
-            };
-            new Spreadsheet(oSettings)
-                .build()
-                .then(function () {
-                    new sap.m.MessageToast.show("Excel Başarı İle Aktarıldı");
-                });
-        },
+        // onExport: function () {
+        //     var aCols, aProducts, oSettings;
+        //     aCols = this.ColumnConfig();
+        //     var _this = this
+        //     aProducts = this.getView().getModel().getProperty("/allProject");
+        //     var fileName = "";
+        //     if (_this.byId("segmented").getSelectedKey() == "All") {
+        //         fileName = "Tüm Projeler"
+        //     } else {
+        //         fileName = "Benim Projelerim"
+        //     }
+        //     oSettings = {
+        //         workbook: { columns: aCols },
+        //         dataSource: aProducts,
+        //         fileName: fileName
+        //     };
+        //     new Spreadsheet(oSettings)
+        //         .build()
+        //         .then(function () {
+        //             new sap.m.MessageToast.show("Excel Başarı İle Aktarıldı");
+        //         });
+        // },
         onSearch: function (oEvent) {
             var _this = this
             _this.aFilters = [];

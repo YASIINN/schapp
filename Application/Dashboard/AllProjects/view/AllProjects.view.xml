@@ -29,7 +29,7 @@
 						</m:Toolbar>
 						<m:HBox alignItems="Center" justifyContent="Start">
 							<m:SearchField placeholder="Ara.." id="searchBar" width="250px" liveChange="onSearch"/>
-							<m:Button tooltip="Excel Raporu Al" icon="sap-icon://excel-attachment" type="Transparent" press="onExport" class="sapUiTinyMarginEnd"/>
+							<!-- <m:Button tooltip="Excel Raporu Al" icon="sap-icon://excel-attachment" type="Transparent" press="onExport" class="sapUiTinyMarginEnd"/> -->
 							<m:Button text="" press="onRefreshData" type="Transparent" icon="sap-icon://refresh" tooltip="Yenile" id="refresh" />
 						</m:HBox>
 						<m:HBox id="dateid">
@@ -43,15 +43,14 @@
 									<m:Text text="Bitiş Tarih" class="sapUiTinyMarginTop sapUiLargeMarginBegin"/>	
 							<m:DatePicker enabled="false"  id="end" class="sapUiTinyMarginBegin" value="{/enddt}"  change="datecontrol"   />
 						</m:HBox>
-
 						<m:HBox>
-							<m:Text text="Proje Durumu" class="sapUiTinyMarginTop"/>
+							<m:Text text="Proje Durumu" id="pjpos" class="sapUiTinyMarginTop"/>
 							<m:Select forceSelection="false" id="fid" width="100px" selectedKey="All" class="sapUiLargeMarginBegin">
 								<core:Item key="All" text="Tümü" />
 								<core:Item key="Active" text="Aktif" />
 								<core:Item key="DeActive" text="Pasif" />
 							</m:Select>
-							<m:Button text="Ara" class="sapUiTinyMarginBegin" press="changeFilter"/>
+							<m:Button text="Ara" id="pjsearch" class="sapUiTinyMarginBegin" press="changeFilter"/>
 						</m:HBox>
 						<m:Toolbar id="meHeader" visible="false">
 							<m:content>

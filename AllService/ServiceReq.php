@@ -169,6 +169,12 @@ if ($SN == "User") {
     }
     echo json_encode($result);
 }
+if($SN=="GeneralSet"){
+    include("/GeneralSet/generalset.php");
+    $generalset = new $SN();
+    $result = $generalset->$MN();
+    echo json_encode($result);
+}
 if ($SN == "Login") {
     include("/Login/login.php");
     $login = new $SN();

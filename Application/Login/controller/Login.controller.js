@@ -1,3 +1,4 @@
+jQuery.sap.require("schapp.Servicejs.PluginsService");
 jQuery.sap.require("schapp.Application.Dashboard.SystemSettings.SystemSettingsServicejs.SystemSettings");
 sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap/m/Dialog', 'sap/m/MessageToast', 'sap/m/Button', 'sap/m/Text', 'sap/m/GroupHeaderListItem', 'sap/viz/ui5/core/BaseChart'], function (Controller, JSONModel, Dialog, MessageToast, Button, Text, GroupHeaderListItem, BaseChart) {
     "use strict";
@@ -9,11 +10,18 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/json/JSONModel', 'sap
                 name: "",
                 pass: ""
             }
+            _this.generalsetting();
             oModel.setProperty("/UserModel", UserModel);
             Servertime.getY().then(function (res) {
                 if (res != new Date().toLocaleDateString().split(".")[2]) {
                     sap.m.MessageToast.show("Lütfen Bilgisayarınızın Tarih Ve Saatini Güncelleyiniz.")
                 }
+            })
+        },
+        generalsetting: function () {
+            var _this = this
+            PluginService.PluginReq({ SN: "GeneralSet", MN: "GET" }).then(function (res) {
+                oModel.setProperty("/gsettings", res)
             })
         },
         onPress: function () {
