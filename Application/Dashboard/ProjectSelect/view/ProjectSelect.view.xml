@@ -114,7 +114,7 @@
                         </HBox>
                     </IconTabFilter>
                     <IconTabSeparator icon=""/>
-                    <IconTabFilter key="sort" icon="sap-icon://sort" text="TERCİH SIRASINI BELİRLE" count="3">
+                    <IconTabFilter key="sort" icon="sap-icon://sort"  text="TERCİH SIRASINI BELİRLE" count="3">
                         <Text text="Tercih Sıranız Eklediğiniz Sıraya Göre Gerçekleşecektir."/>
 
                         <Table inset="false" items="{

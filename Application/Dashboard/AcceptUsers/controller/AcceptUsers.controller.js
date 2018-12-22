@@ -141,6 +141,7 @@ sap.ui.define(['sap/ui/core/mvc/Controller', 'sap/ui/model/Filter', "sap/ui/expo
                             unm: oModel.getProperty(spath).rtsno,
                             upass: md5(oModel.getProperty(spath).rttcno),
                             quotaremain: oModel.oData.SysSettings[0].pjscontenjan,
+                            ustatus:"X"
                         })
                     }
                     UserServices.UserReq({ MN: "ADD", SN: "User", userdata: data }).then(function (res) {

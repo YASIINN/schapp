@@ -4,7 +4,7 @@ $SN = $_POST['SN'];
 $MN = $_POST['MN'];
 $result = "";
 if ($SN == "Project") {
-    include("/Project/project.php");
+    include("Project/project.php");
     $pj = new $SN();
     if ($MN == "GET") {
         $result = $pj->$MN();
@@ -30,7 +30,7 @@ if ($SN == "Project") {
     echo json_encode($result);
 }
 if ($SN == "Lesson") {
-    include("/Lesson/lesson.php");
+    include("Lesson/lesson.php");
     $ls = new $SN();
     if ($MN == "GET") {
         $result = $ls->$MN($_POST['where'], $_POST['allparam']);
@@ -56,7 +56,7 @@ if ($SN == "Lesson") {
     echo json_encode($result);
 }
 if ($SN == "Sections") {
-    include("/Sections/sections.php");
+    include("Sections/sections.php");
     $sc = new $SN();
     if ($MN == "GETWHERE") {
         $result = $sc->$MN($_POST['where'], $_POST['allparam'], $_POST['field']);
@@ -70,13 +70,13 @@ if ($SN == "Sections") {
     echo json_encode($result);
 }
 if ($SN == "Servicetime") {
-    include("/Servicetime/servicetime.php");
+    include("Servicetime/servicetime.php");
     $st = new Servicetime();
     $result = $st->getTime();
     echo json_encode($result);
 }
 if ($SN == "ActiveProject") {
-    include("/ActiveProject/activeproject.php");
+    include("ActiveProject/activeproject.php");
     $ap = new $SN();
     if ($MN == "ADD") {
         $result = $ap->$MN($_POST['pjdata']);
@@ -99,7 +99,7 @@ if ($SN == "ActiveProject") {
     echo json_encode($result);
 }
 if ($SN == "ProjectOnLesson") {
-    include("/ProjectOnLesson/projectonlesson.php");
+    include("ProjectOnLesson/projectonlesson.php");
     $pol = new $SN();
     if ($MN == "GETP") {
         $result = $pol->$MN($_POST['where'], $_POST['param']);
@@ -113,7 +113,7 @@ if ($SN == "ProjectOnLesson") {
     echo json_encode($result);
 }
 if ($SN == "LessonOnProject") {
-    include("/LessonOnProject/lessononproject.php");
+    include("LessonOnProject/lessononproject.php");
     $lop = new $SN();
     if ($MN == "GETP") {
         $result = $lop->$MN($_POST['where'], $_POST['wparam']);
@@ -123,19 +123,19 @@ if ($SN == "LessonOnProject") {
     echo json_encode($result);
 }
 if ($SN == "Title") {
-    include("/Title/title.php");
+    include("Title/title.php");
     $title = new $SN();
     $result = $title->$MN();
     echo json_encode($result);
 }
 if ($SN == "Authority") {
-    include("/Authority/authority.php");
+    include("Authority/authority.php");
     $authority = new $SN();
     $result = $authority->$MN();
     echo json_encode($result);
 }
 if ($SN == "Session") {
-    include("/Session/session.php");
+    include("Session/session.php");
     $session = new $SN();
     if ($MN == "DELS") {
         $result = $session->$MN();
@@ -145,7 +145,7 @@ if ($SN == "Session") {
     echo json_encode($result);
 }
 if ($SN == "User") {
-    include("/User/user.php");
+    include("User/user.php");
     $user = new $SN();
     if ($MN == "GETUL") {
         $result = $user->$MN($_POST['tid']);
@@ -170,19 +170,19 @@ if ($SN == "User") {
     echo json_encode($result);
 }
 if($SN=="GeneralSet"){
-    include("/GeneralSet/generalset.php");
+    include("GeneralSet/generalset.php");
     $generalset = new $SN();
     $result = $generalset->$MN();
     echo json_encode($result);
 }
 if ($SN == "Login") {
-    include("/Login/login.php");
+    include("Login/login.php");
     $login = new $SN();
     $result = $login->$MN($_POST['name'], $_POST['pass']);
     echo json_encode($result);
 }
 if ($SN == "Register") {
-    include("/Register/register.php");
+    include("Register/register.php");
     $register = new $SN();
     if ($MN == "ADD") {
         $result = $register->$MN($_POST['registerdata']);
@@ -202,7 +202,7 @@ if ($SN == "Register") {
     echo json_encode($result);
 }
 if ($SN == "SystemSettings") {
-    include("/SystemSettings/systemsettings.php");
+    include("SystemSettings/systemsettings.php");
     $settings = new $SN();
     if ($MN == "SETSYS") {
         $result = $settings->$MN($_POST['param'],$_POST['where']);
@@ -214,7 +214,7 @@ if ($SN == "SystemSettings") {
     echo json_encode($result);
 }
 if ($SN == "ActivePonUser") {
-    include("/ActivePonUser/activeponuser.php");
+    include("ActivePonUser/activeponuser.php");
     $apu = new $SN();
     if ($MN == "ADD") {
         $result = $apu->$MN($_POST['apudata']);
@@ -230,7 +230,7 @@ if ($SN == "ActivePonUser") {
     echo json_encode($result);
 }
 if ($SN == "Point") {
-    include("/Point/point.php");
+    include("Point/point.php");
     $pnt = new $SN();
     if ($MN == "ADD") {
         $result = $pnt->$MN($_POST['pdata']);
@@ -240,7 +240,7 @@ if ($SN == "Point") {
     echo json_encode($result);
 }
 if ($SN == "UploadPdf") {
-    include("/UploadPdf/uploadpdf.php");
+    include("UploadPdf/uploadpdf.php");
     $file = new $SN();
     if ($MN == "ADD") {
         $result = $file->$MN($_POST['file'], $_POST['tfuid'], $_POST['tfname'], $_POST['tfsize'], $_POST['tftype'], $_POST['tfperiod']);

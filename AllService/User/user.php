@@ -59,6 +59,7 @@ class User extends database
                     "tid" => $userdata[$i]['tid'],
                     "uauthr" => $userdata[$i]['uauthr'],
                     "quotaremain" => $userdata[$i]['quotaremain'],
+                    "ustatus"=>$userdata[$i]['ustatus'],
                 );
                 $addRows = $this->insert('user', $data);
             }
