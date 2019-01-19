@@ -3,7 +3,7 @@ jQuery.sap.require("schapp.Servicejs.MailService");
 jQuery.sap.require("schapp.Application.Dashboard.SectionServicejs.SectionService");
 sap.ui.define(['sap/m/MessageBox', 'sap/ui/core/mvc/Controller'], function (MessageBox, Controller) {
     "use strict";
-    var PageController = Controller.extend("schapp.Application.Register.controller.Register", {
+    var PageController = Controller.extend("schapp.Application.Register.controller.register", {
         onInit: function () {
             var _this = this;
             _this.getView().setModel(oModel);

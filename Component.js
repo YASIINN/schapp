@@ -85,6 +85,17 @@ sap.ui.define(
                   },
                 },
                 {
+                  pattern: "Dashboard/ProjectAssignment",
+                  viewPath: "schapp.Application.Dashboard.ProjectAssignment.view",
+                  name: "Dashboard/ProjectAssignment",
+                  view: "ProjectAssignment",
+                  targetControl: "DashboardRouterId",
+                  transition: "show",
+                  cache: {
+                    keys: [version]
+                  },
+                },
+                {
                   pattern: "Dashboard/AddLesson",
                   viewPath: "schapp.Application.Dashboard.AddLesson.view",
                   name: "Dashboard/AddLesson",

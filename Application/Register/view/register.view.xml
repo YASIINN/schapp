@@ -1,4 +1,4 @@
-<mvc:View controllerName="schapp.Application.Register.controller.Register" 
+<mvc:View controllerName="schapp.Application.Register.controller.register" 
     xmlns:l="sap.ui.layout" 
     xmlns:core="sap.ui.core" 
     xmlns:mvc="sap.ui.core.mvc" 

@@ -182,6 +182,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (e) {
             }
         },
         setSys: function () {
+            var _this = this
             CreateComponent.showBusyIndicator();
             SystemService.getSystemSetting({
                 MN: "SETSYS", SN: "SystemSettings",
