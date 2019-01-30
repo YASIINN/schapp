@@ -17,8 +17,10 @@
                     <HBox alignItems="Start" justifyContent="Stretch">
                     <Text text="Proje Kontenjanı ve Seçilecek Minimum Hoca Hakkı Alanları Sadece Diğer Dönem Başlangıcında Değiştirilebilir"/>
                     </HBox>
+                       <VBox width="100%" alignItems="Start" justifyContent="Stretch">
+                        <Button text="Dönemi Yedekle" press="backupperiod" type="Emphasized"/>
+                    </VBox>
                     <VBox width="100%" alignItems="End" justifyContent="Stretch">
-                    
                         <Button text="Düzenle" press="setEnb" type="Emphasized"/>
                     </VBox>
                     <VBox alignItems="Stretch" justifyContent="Start" width="100%">

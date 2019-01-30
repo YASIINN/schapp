@@ -29,6 +29,12 @@ if ($SN == "Project") {
     }
     echo json_encode($result);
 }
+if($SN=="Backup"){
+    include("Backup/backup.php");
+    $backup=new $SN();
+    $result=$backup->$MN();
+    echo json_encode($result);
+}
 if ($SN == "Lesson") {
     include("Lesson/lesson.php");
     $ls = new $SN();
